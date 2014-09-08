@@ -25,4 +25,8 @@
     
 
     ko.applyBindings(new mpSelect(), document.getElementById("body"));
+    $("#mpSelect").select2({
+        placeholder: "Select an MP",
+        allowClear: true
+    });
 })();
