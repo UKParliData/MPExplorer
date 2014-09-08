@@ -78,6 +78,7 @@
     <Content Include="Scripts\jquery-1.9.0.min.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
     <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Scripts\mpselector.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-1.9.0.min.map" />
   </ItemGroup>
