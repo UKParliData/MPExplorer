@@ -1,4 +1,8 @@
-﻿.vcenter{
+﻿body {
+    padding-top: 70px;
+}
+
+.vcenter{
     height: 100vh;
     display: table;
 }
@@ -6,4 +10,33 @@
 .content {
     display:table-cell;
     vertical-align:middle;    
+}
+
+.text-default {
+    cursor:pointer;
+    color: #b5b5b5;
+}
+
+.text-default:hover {
+    color: #e0e0e0;
+}
+
+.chart rect {
+  fill: #31708f;
+  cursor:pointer;
+}
+
+.chart rect:hover {
+  fill: #5cb85c;
+}
+
+.chart text {
+  font-size: 10px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
