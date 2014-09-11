@@ -3,7 +3,7 @@
                 { date: "2014 Jan", value: 10 },
                 { date: "2014 Feb", value: 1 },
                 { date: "2014 Mar", value: 20 },
-                { date: "2014 Apr", value: 15 },
+                { date: "2014 Apr", value: 15 }
     ];
 
     var margin = { top: 30, right: 30, bottom: 30, left: 30 };
@@ -42,13 +42,13 @@
     chart.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
 }
 
-define(['Scripts/knockout-3.2.0.debug', 'Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (ko, d3, htmlText) {
+define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, htmlText) {
     return {
         viewModel: function (params) {
             var self = this;
 
-            self.selectedMP = params;
-            self.selectedVoting = ko.observable(null);
+            self.selectedMP = params.selectedMP;            
+            self.selectedVoting = ko.observable(params.selectedVoting);
 
             self.selectVoting = function (data) {
                 self.selectedVoting(data);

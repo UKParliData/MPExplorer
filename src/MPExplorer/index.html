@@ -7,42 +7,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>MP Explorer</title>    
-    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="Content/MPExplorer.css" />
     <link rel="stylesheet" type="text/css" href="Content/css/select2.css" />
+    <link rel="stylesheet" type="text/css" href="Content/select2-bootstrap.css" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">MP Explorer</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
+    <header class="panel panel-info">
+        <div class="panel-heading">
+            <span class="clickable" data-bind="click: goHome">
+                <span class="glyphicon glyphicon-user"></span>
+                <span class="glyphicon glyphicon-user"></span>
+                <span class="glyphicon glyphicon-user"></span>
+                <strong>MP Explorer</strong>
+            </span>
         </div>
-    </div>
+    </header>
 
     <div class="container">
         <div data-bind="component: { name: selectedComponent, params: parameters }"></div>
     </div>
 
-
-    <script src="Scripts/jquery-1.9.0.js"></script>
-    <script src="Scripts/bootstrap.js"></script>
-    <!--<script src="Scripts/knockout-3.2.0.js"></script>
-    <script src="Scripts/select2.js"></script>-->    
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/knockout-3.2.0.js"></script>
     <script data-main="Scripts/modules/main" src="Scripts/require.js"></script>
 </body>    
 </html>

@@ -1,4 +1,4 @@
-﻿define(['Scripts/knockout-3.2.0.debug', 'Scripts/text!modules/divisionlist.html'], function (ko, htmlText) {
+﻿define(['Scripts/text!modules/divisionlist.html'], function (htmlText) {
     return {
         viewModel: function (params) {
             var self = this;
@@ -30,13 +30,14 @@
             });
 
             self.selectedMP = params.selectedMP;
-            self.selectedMonth = params.selectedMonth;
+            self.selectedVoting = params.selectedVoting;
             self.divisions = ko.observableArray(divs);
 
             self.showDivision = function () {
                 window.masterVM.parameters({
                     selectedMP: self.selectedMP,
-                    selectedDivision: this
+                    selectedDivision: this,
+                    selectedVoting: params.selectedVoting()
                 });
                 window.masterVM.selectedComponent("division-viewer");
             }

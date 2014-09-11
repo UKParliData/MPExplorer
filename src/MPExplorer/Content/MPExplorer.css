@@ -1,8 +1,4 @@
-﻿body {
-    padding-top: 70px;
-}
-
-.vcenter{
+﻿.vcenter{
     height: 100vh;
     display: table;
 }
@@ -12,13 +8,12 @@
     vertical-align:middle;    
 }
 
-.text-default {
+.clickable {
     cursor:pointer;
-    color: #b5b5b5;
 }
 
-.text-default:hover {
-    color: #e0e0e0;
+.select2 {
+    width: 100%;
 }
 
 .chart rect {
@@ -27,7 +22,7 @@
 }
 
 .chart rect:hover {
-  fill: #5cb85c;
+  fill: #245269;
 }
 
 .chart text {

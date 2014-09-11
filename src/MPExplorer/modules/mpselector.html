@@ -1,9 +1,7 @@
 ﻿<div class="row">
     <div class="col-lg-offset-4 col-lg-4 vcenter">
-        <div class="content">
-            <label>Choose an MP</label>
-            <select id="mpSelect" class="form-control" data-bind="options: names, optionsText: 'name', optionsValue: 'id', value: selectedMPId"></select>
-            <button class="btn btn-success" data-bind="click: showMP, enable: selectedMPId()!=null">Select</button>
+        <div class="content form-group">            
+            <div data-bind="value: selectedMPId, event: { change: showMP }, select2: { data: names, text: 'name', formatResult: formatLabel, placeholder: 'Choose an MP' }" class="select2"></div>
         </div>
     </div>
 </div>

@@ -3,7 +3,7 @@
     urlArgs: "bust=" + (new Date()).getTime()
 });
 
-define(['Scripts/knockout-3.2.0.debug', 'Scripts/modules/master'], function (ko, master) {
+define(['Scripts/modules/master'], function (master) {
     ko.components.register('mp-selector', { require: 'Scripts/modules/mpselector.js' });
     ko.components.register('mp-viewer', { require: 'Scripts/modules/mpviewer.js' });
     ko.components.register('mp-voter', { require: 'Scripts/modules/mpvoter.js' });

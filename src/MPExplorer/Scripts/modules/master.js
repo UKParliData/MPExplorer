@@ -1,9 +1,13 @@
-﻿define(['Scripts/knockout-3.2.0.debug'], function (ko) {
+﻿define([], function () {
     var masterVM = function () {
         var self = this;
 
         self.selectedComponent = ko.observable("mp-selector");
         self.parameters = ko.observable(null);
+
+        self.goHome = function () {
+            self.selectedComponent("mp-selector");
+        };
     }
     return masterVM;
 });

@@ -1,7 +1,14 @@
-﻿<mp-viewer params="name: selectedMP.name"></mp-viewer>
+﻿<mp-viewer params="selectedMP: selectedMP"></mp-viewer>
 <div class="row">
     <div class="col-lg-12">
-        <h2 data-bind="text: divisionName"></h2>
+        <h4>
+            <span class="label label-info">
+                <span data-bind="text: divisionName"></span>
+                <a data-bind="click: showVoting" class="text-info clickable">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </span>
+        </h4>         
     </div>
     <div class="col-lg-12">
         <text data-bind="text: divisionExtract"></text>
