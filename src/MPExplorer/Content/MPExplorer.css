@@ -16,13 +16,22 @@
     width: 100%;
 }
 
-.chart rect {
-  fill: #31708f;
+.ayebar {
+  fill: #3c763d;
   cursor:pointer;
 }
 
-.chart rect:hover {
-  fill: #245269;
+.ayebar:hover {
+  fill: #2b542c;
+}
+
+.nobar {
+  fill: #a94442;
+  cursor:pointer;
+}
+
+.nobar:hover {
+  fill: #843534;
 }
 
 .chart text {

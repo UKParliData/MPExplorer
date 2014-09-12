@@ -1,37 +1,42 @@
-﻿var mp = function (id, name) {
+﻿var mp = function (id, name, party) {
     this.id = id;
     this.name = name;
-    this.text = name;
+    this.party = party;
 }
 
 define(['Scripts/text!modules/mpselector.html', 'Scripts/select2', 'Scripts/modules/select2BindingHandler'], function (htmlText) {
+    var css1 = require.toUrl("Content/css/select2.css");
+    var css2 = require.toUrl("Content/select2-bootstrap.css");
+    $("head").append($("<link>", { rel: "stylesheet", media: "all", type: "text/css", href: css1 }));
+    $("head").append($("<link>", { rel: "stylesheet", media: "all", type: "text/css", href: css2 }));
     return {
         viewModel: function () {
             var self = this;
 
-            var mps = [];            
-            mps.push(new mp(1,"abc 1"));
-            mps.push(new mp(2, "abc 2"));
-            mps.push(new mp(3, "def 3"));
-            mps.push(new mp(4, "ghi 4"));
-
-            self.names = mps;
+            self.members = ko.observableArray([]);
             self.selectedMPId = ko.observable(null);
 
             self.selectedMP=ko.pureComputed(function () {
-                return ko.utils.arrayFirst(self.names, function (item) {
-                    return item.id == self.selectedMPId() * 1;
+                return ko.utils.arrayFirst(self.members(), function (item) {
+                    return item.id == self.selectedMPId();
                 });
-            });
-
-            self.formatLabel = function (mp) {
-                return mp.name;
-            };
+            });            
 
             self.showMP = function () {
-                window.masterVM.parameters({ selectedMP: self.selectedMP() });
-                window.masterVM.selectedComponent("mp-voter");
+                if (self.selectedMPId() != null) {
+                    window.masterVM.parameters({ selectedMP: self.selectedMP() });
+                    window.masterVM.selectedComponent("mp-voter");
+                }
             };
+
+            $.get("http://url/members/commons.json?_properties=fullName,party&_view=basic&_page=0&_pageSize=50000", function (data) {
+                var mps = [];
+                if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
+                    for (var i = 0; i < data.result.items.length; i++)
+                        mps.push(new mp(data.result.items[i]._about, data.result.items[i].fullName, data.result.items[i].party));
+                mps.push(null);
+                self.members(mps);                
+            });
         },
         template: htmlText
     }

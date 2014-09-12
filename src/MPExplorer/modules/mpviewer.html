@@ -3,7 +3,7 @@
         <div>
             <h3>
                 <span class="label label-info">
-                    <span data-bind="text: name"></span>
+                    <span data-bind="text: selectedMP.name"></span>
                     <a data-bind="click: selectMP" class="text-info clickable">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
@@ -14,7 +14,7 @@
             <span><strong>Constituency </strong>abc</span>
         </div>
         <div>
-            <span><strong>Party </strong>def</span>
+            <span><strong>Party </strong><text data-bind="text: selectedMP.party"></text></span>
         </div>
     </div>
     <div class="col-lg-offset-4 col-lg-4 text-right">

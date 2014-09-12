@@ -7,26 +7,26 @@
             divs.push({
                 number: 1,
                 date: "01.01.2001",
-                name:"Bill 1",
-                voting:"Yes"
+                name: "Bill 1",
+                isAye: true
             });
             divs.push({
                 number: 2,
                 date: "01.01.2001",
-                name:"Bill 2",
-                voting:"No"
+                name: "Bill 2",
+                isAye: false
             });
             divs.push({
                 number: 3,
                 date: "01.01.2001",
-                name:"Bill 3",
-                voting:"Maybe"
+                name: "Bill 3",
+                isAye: true
             });
             divs.push({
                 number: 4,
                 date: "01.01.2001",
-                name:"Bill 4",
-                voting:"No idea"
+                name: "Bill 4",
+                isAye: false
             });
 
             self.selectedMP = params.selectedMP;
@@ -41,7 +41,7 @@
                 });
                 window.masterVM.selectedComponent("division-viewer");
             }
-            
+
         },
         template: htmlText
     }

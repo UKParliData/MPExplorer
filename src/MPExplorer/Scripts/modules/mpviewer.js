@@ -3,7 +3,7 @@
         viewModel: function (params) {
             var self = this;
 
-            self.name = params.selectedMP.name;
+            self.selectedMP = params.selectedMP;
             self.selectMP = function () {
                 window.masterVM.parameters(null);
                 window.masterVM.selectedComponent("mp-selector");
