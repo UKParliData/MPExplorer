@@ -3,11 +3,7 @@
         var obj = valueAccessor(),
             allBindings = allBindingsAccessor(),
             lookupKey = allBindings.lookupKey;
-
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-            $(element).select2('destroy');
-        });
-
+        
         $(element).select2(obj);
         if (lookupKey) {
             var value = ko.utils.unwrapObservable(allBindings.value);
@@ -15,6 +11,9 @@
                 return item[lookupKey] === value;
             }));
         }
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            $(element).select2('destroy');
+        });
     },
     update: function (element) {
         $(element).trigger('change');

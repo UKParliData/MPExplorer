@@ -69,9 +69,13 @@
     <Content Include="Content\css\select2x2.png" />
     <Content Include="Content\MPExplorer.css" />
     <Content Include="Content\select2-bootstrap.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="index.html" />
+    <Content Include="modules\chartviewer.html" />
     <Content Include="modules\divisionlist.html" />
+    <Content Include="modules\genericheader.html" />
     <Content Include="modules\mpselector.html" />
     <Content Include="modules\mpviewer.html" />
     <Content Include="modules\mpvoter.html" />
@@ -84,12 +88,16 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\d3.min.js" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modules\chartviewer.js" />
     <Content Include="Scripts\modules\divisionlist.js" />
     <Content Include="modules\divisionviewer.html" />
     <Content Include="Scripts\modules\divisionviewer.js" />
+    <Content Include="Scripts\modules\genericheader.js" />
     <Content Include="Scripts\modules\main.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
     <Content Include="Scripts\knockout-3.2.0.js" />
@@ -149,6 +157,8 @@
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\text.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
@@ -156,6 +166,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\toastr.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,21 +1,11 @@
-﻿<mp-viewer params="selectedMP: selectedMP"></mp-viewer>
-<div class="row">
-    <div class="col-lg-offset-1 col-lg-10">
-        <div class="row text-center">
-            <h4>Number of votes per calendar month</h4>            
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <svg class="chart"></svg>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <span data-bind="visible: selectedVoting() == null">Click on a column to see details</span>
-                <!-- ko if: selectedVoting() != null -->
-                    <division-list params="selectedVoting: selectedVoting, selectedMP: selectedMP"></division-list>
-                <!-- /ko -->
-            </div>
-        </div>
-    </div>    
+﻿<div class="row">
+    <div class="col-lg-3">
+        <mp-viewer params="selectedMP: selectedMP"></mp-viewer>
+    </div>
+    <generic-header params="header: 'Number of votes', value: numberOfVotes" data-bind="click: chartSelection.bind($root,1)"></generic-header>
+    <generic-header params="header: 'Number of oral questions', value: numberOfOralQuestions" data-bind="click: chartSelection.bind($root,2)"></generic-header>
+    <generic-header params="header: 'Number of written questions', value: numberOfWrittenQuestions" data-bind="click: chartSelection.bind($root,3)"></generic-header>
 </div>
+<!-- ko if: chartHeader() != null -->
+    <chart-viewer params="header: chartHeader, data: dataset, clickCallback: barClick"></chart-viewer>
+<!-- /ko -->

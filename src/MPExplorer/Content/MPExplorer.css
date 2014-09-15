@@ -12,6 +12,10 @@
     cursor:pointer;
 }
 
+.panel.clickable:hover {
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+}
+
 .select2 {
     width: 100%;
 }

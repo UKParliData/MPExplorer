@@ -8,6 +8,7 @@
     <meta name="author" content="">
     <title>MP Explorer</title>    
     <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="Content/toastr.min.css" />
     <link rel="stylesheet" type="text/css" href="Content/MPExplorer.css" />    
 </head>
 <body>
@@ -21,13 +22,13 @@
             </span>
         </div>
     </header>
-
     <div class="container">
         <div data-bind="component: { name: selectedComponent, params: parameters }"></div>
-    </div>
-
+    </div>    
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/knockout-3.2.0.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/toastr.min.js"></script>
     <script data-main="Scripts/modules/main" src="Scripts/require.js"></script>
 </body>    
 </html>

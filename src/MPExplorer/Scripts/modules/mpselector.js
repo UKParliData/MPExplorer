@@ -1,5 +1,5 @@
-﻿var mp = function (id, name, party) {
-    this.id = id;
+﻿var mp = function (urlId, name, party) {
+    this.id = urlId.substring(urlId.lastIndexOf("/") + 1);
     this.name = name;
     this.party = party;
 }
@@ -23,7 +23,7 @@ define(['Scripts/text!modules/mpselector.html', 'Scripts/select2', 'Scripts/modu
             });            
 
             self.showMP = function () {
-                if (self.selectedMPId() != null) {
+                if ((self.selectedMPId() != null) && (self.selectedMPId() > 0)) {
                     window.masterVM.parameters({ selectedMP: self.selectedMP() });
                     window.masterVM.selectedComponent("mp-voter");
                 }
@@ -31,11 +31,13 @@ define(['Scripts/text!modules/mpselector.html', 'Scripts/select2', 'Scripts/modu
 
             $.get("http://url/members/commons.json?_properties=fullName,party&_view=basic&_page=0&_pageSize=50000", function (data) {
                 var mps = [];
+                toastr.info("http://url/members/commons.json?_properties=fullName,party&_view=basic&_page=0&_pageSize=50000");
+                mps.push(new mp("/0", "", ""));
                 if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                     for (var i = 0; i < data.result.items.length; i++)
                         mps.push(new mp(data.result.items[i]._about, data.result.items[i].fullName, data.result.items[i].party));
                 mps.push(null);
-                self.members(mps);                
+                self.members(mps);
             });
         },
         template: htmlText

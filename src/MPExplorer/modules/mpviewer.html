@@ -1,23 +1,18 @@
-﻿<div class="row">
-    <div class="col-lg-4">
-        <div>
-            <h3>
-                <span class="label label-info">
-                    <span data-bind="text: selectedMP.name"></span>
-                    <a data-bind="click: selectMP" class="text-info clickable">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                </span>
-            </h3>            
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <a data-bind="click: selectMP" class="text-danger pull-right clickable">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <div class="panel-title">
+            <h4><span data-bind="text: selectedMP.name"></span></h4>            
         </div>
-        <div>
-            <span><strong>Constituency </strong>abc</span>
-        </div>
+    </div>
+    <div class="panel-body">
         <div>
             <span><strong>Party </strong><text data-bind="text: selectedMP.party"></text></span>
         </div>
     </div>
-    <div class="col-lg-offset-4 col-lg-4 text-right">
+    <!--<div class="col-lg-offset-4 col-lg-4 text-right">
         <img class="img-thumbnail" />
-    </div>
+    </div>-->
 </div>
