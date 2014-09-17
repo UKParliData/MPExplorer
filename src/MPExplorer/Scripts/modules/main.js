@@ -16,7 +16,7 @@ define(['Scripts/modules/conductor'], function (conductor) {
     ko.components.register('busy-indicator', { template: { require: 'Scripts/text!modules/busyindicator.html' } });
     
     window.conductorVM = new conductor();
-    window.MPExplorer = new MPExplorer.Generic();
+    window.MPExplorer = new MPExplorer.Generic();    
     ko.applyBindings(conductorVM);
     toastr.options.positionClass = "toast-bottom-right";
 });

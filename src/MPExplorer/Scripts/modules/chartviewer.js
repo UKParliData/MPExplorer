@@ -33,17 +33,22 @@
         return left.sortDate === right.sortDate ? left.index - right.index : left.sortDate > right.sortDate ? 1 : -1;
     });
 
-    for (var i = 0; i < totals.length; i++)
+    var maxValue = 0;
+    for (var i = 0; i < totals.length; i++) {
+        if (totals[i].value > maxValue)
+            maxValue = totals[i].value;
         if ((Math.floor(totals.length / 10) == 0) || (i % Math.floor(totals.length / 10) == 0))
             categories.push(totals[i].date);
+    }
 
-    var margin = { top: 30, right: 30, bottom: 30, left: 40 };
+    var margin = { top: 30, right: 30, bottom: 30, left: 30 };
     var height = 200 - margin.top - margin.bottom;
     var width = $(".chart").parent().width() - margin.left - margin.right;
     
     var chart = d3.select(".chart").
         attr("height", height + margin.top + margin.bottom).
-        attr("width", width + margin.left + margin.right);
+        attr("width", width + margin.left + margin.right).
+        append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);
     var y = d3.scale.linear().range([height, 0]);
@@ -77,8 +82,11 @@
     }
 
     var xAxis = d3.svg.axis().tickValues(categories).scale(x).orient("bottom");
+    var yAxis = d3.svg.axis().tickValues([Math.floor(maxValue/2), maxValue]).tickFormat(d3.format("d")).scale(y).orient("left");
 
     chart.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
+    chart.append("g").attr("class", "y axis").call(yAxis);
+
 }
 
 define(['Scripts/text!modules/chartviewer.html'], function (htmlText) {
