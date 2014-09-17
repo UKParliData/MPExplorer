@@ -1,0 +1,16 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-sm-offset-5 col-sm-1">
+                    <busy-indicator data-bind="style:{display:isLoading()?'block':'none'}"></busy-indicator>
+                </div>
+                <div data-bind="visible: isLoading()==false">
+                    <h4 data-bind="text: questionText"></h4>
+                    <div><strong>Answer date </strong><text data-bind="text: answerDate"></text></div>
+                    <div><strong>Answering body </strong><text data-bind="text: answeringBody"></text></div>
+                </div>
+            </div>         
+        </div>
+    </div>
+</div>

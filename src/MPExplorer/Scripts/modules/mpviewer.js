@@ -5,8 +5,8 @@
 
             self.selectedMP = params.selectedMP;
             self.selectMP = function () {
-                window.masterVM.parameters(null);
-                window.masterVM.selectedComponent("mp-selector");
+                conductorVM.parameters(null);
+                conductorVM.selectedComponent("mp-selector");
             }
         },
         template: htmlText

@@ -3,18 +3,34 @@
         viewModel: function (params) {
             var self = this;
 
-            self.selectedMP = params.selectedMP;
-            self.selectedDivision = params.selectedMP;
-            self.divisionName = params.selectedDivision.name;
-            self.divisionExtract = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio turpis, ultricies nec cursus vitae, ultricies eget nisl. Integer faucibus accumsan lobortis. Duis accumsan ante nibh, a feugiat urna porttitor vel. Donec elit tortor, scelerisque vel ipsum non, venenatis sagittis risus. Cras auctor nibh quis ligula sollicitudin, ac euismod ligula malesuada. Praesent eu leo convallis, rhoncus ex non, molestie dolor. Ut feugiat mi non tempor dignissim. In vitae tortor at purus pulvinar porta non id lorem. Proin purus erat, fringilla a risus placerat, laoreet dapibus risus. Vestibulum bibendum quis nisi id lacinia. Etiam faucibus lorem in eros sodales mattis eu nec risus.";
+            self.selectedDivision = params.selectedDivision;            
+            self.divisionTitle = ko.observable();
+            self.noesCount = ko.observable();
+            self.ayesCount = ko.observable();
+            self.abstainCount = ko.observable();
+            self.didNotVoteCount = ko.observable();
+            self.errorVoteCount = ko.observable();
+            self.isLoading = ko.observable(true);
 
-            self.showVoting = function () {
-                window.masterVM.parameters({
-                    selectedMP: self.selectedMP,
-                    selectedDate: params.selectedDivision.date,
-                    selectedVoting: params.selectedVoting
-                });
-                window.masterVM.selectedComponent("mp-voter");
+            self.retriveDivision = function (data) {
+                if ((data != null) && (data.result != null) && (data.result.primaryTopic != null)) {
+                    self.divisionTitle(data.result.primaryTopic.title[0]);
+                    self.noesCount(data.result.primaryTopic.Noesvotecount);
+                    self.ayesCount(data.result.primaryTopic.AyesCount);
+                    self.abstainCount(data.result.primaryTopic.AbstainCount);
+                    self.didNotVoteCount(data.result.primaryTopic.Didnotvotecount);
+                    self.errorVoteCount(data.result.primaryTopic.Errorvotecount);
+                }
+                self.isLoading(false);
+            };
+            
+            self.showInfo = ko.computed(function () {
+                self.isLoading(true);
+                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision().id + ".json", self.retriveDivision);
+            });
+
+            self.dispose = function () {
+                self.showInfo.dispose();
             };
         },
         template: htmlText

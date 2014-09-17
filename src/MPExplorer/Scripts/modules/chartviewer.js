@@ -20,7 +20,7 @@
             }
         if (isFound == false)
             totals.push({
-                sortDate: values[i].date.split("-")[0] + values[i].date.split("-")[1],
+                sortDate: values[i].sortDate,
                 date: values[i].yearMonth,
                 value: 1,
                 aye: isAyeNo ? values[i].isAye ? 1 : 0 : null,
@@ -37,7 +37,7 @@
         if ((Math.floor(totals.length / 10) == 0) || (i % Math.floor(totals.length / 10) == 0))
             categories.push(totals[i].date);
 
-    var margin = { top: 30, right: 30, bottom: 30, left: 30 };
+    var margin = { top: 30, right: 30, bottom: 30, left: 40 };
     var height = 200 - margin.top - margin.bottom;
     var width = $(".chart").parent().width() - margin.left - margin.right;
     
@@ -91,8 +91,10 @@ define(['Scripts/text!modules/chartviewer.html'], function (htmlText) {
             
             self.refreshChart = ko.computed(function () {
                 $(".chart").empty();
-                generateChart(self.data(), params.clickCallback);
-                return;
+                if ((self.data() != null) && (self.data().length > 0))
+                    generateChart(self.data(), params.clickCallback);
+                else
+                    self.header("No data available");
             });
 
             self.dispose = function () {

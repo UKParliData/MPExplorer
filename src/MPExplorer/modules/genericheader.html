@@ -1,5 +1,5 @@
 ﻿<div class="col-lg-3">
-    <div class="panel panel-default clickable">
+    <div class="panel panel-default" data-bind="css: { clickable: value() > 0 }">
         <div class="panel-heading">
             <div class="panel-title">
                 <h4 data-bind="text: header"></h4>            
@@ -7,7 +7,12 @@
         </div>
         <div class="panel-body">                
             <div class="text-center">
-                <strong data-bind="text: value"></strong>
+                <strong data-bind="text: value"></strong>                
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-5 col-sm-1">
+                    <busy-indicator data-bind="style:{display:isLoading()?'block':'none'}"></busy-indicator>
+                </div>
             </div>
         </div>
     </div>

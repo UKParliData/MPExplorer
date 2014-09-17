@@ -1,9 +1,9 @@
 ﻿require.config({
     baseUrl: "/",
-    urlArgs: "bust=" + (new Date()).getTime()
+    urlArgs: "bust=" + (new Date()).getTime()    
 });
 
-define(['Scripts/modules/master'], function (master) {
+define(['Scripts/modules/conductor'], function (conductor) {
     ko.components.register('mp-selector', { require: 'Scripts/modules/mpselector.js' });
     ko.components.register('mp-viewer', { require: 'Scripts/modules/mpviewer.js' });
     ko.components.register('generic-header', { require: 'Scripts/modules/genericheader.js' });
@@ -11,7 +11,13 @@ define(['Scripts/modules/master'], function (master) {
     ko.components.register('mp-voter', { require: 'Scripts/modules/mpvoter.js' });
     ko.components.register('division-list', { require: 'Scripts/modules/divisionlist.js' });
     ko.components.register('division-viewer', { require: 'Scripts/modules/divisionviewer.js' });
-
-    window.masterVM = new master();
-    ko.applyBindings(masterVM);
+    ko.components.register('question-list', { require: 'Scripts/modules/questionlist.js' });
+    ko.components.register('question-viewer', { require: 'Scripts/modules/questionviewer.js' });
+    ko.components.register('busy-indicator', { template: { require: 'Scripts/text!modules/busyindicator.html' } });
+    
+    window.conductorVM = new conductor();
+    window.MPExplorer = new MPExplorer.Generic();
+    ko.applyBindings(conductorVM);
+    toastr.options.positionClass = "toast-bottom-right";
 });
+    

@@ -1,8 +1,10 @@
 ﻿<div class="row">
     <div class="col-lg-offset-4 col-lg-4 vcenter">
         <div class="content form-group">
-            <h4>Choose an MP</h4>            
-            <select data-bind="enable: (members().length > 0) && (selectedMPId() == null), options: members, optionsText: 'name', optionsValue: 'id', value: selectedMPId, event: {change: showMP}, select2: { placeholder: 'Choose an MP' }" class="select2"></select>
+            <h4>Choose an MP
+                <busy-indicator class="pull-right" data-bind="style:{display:isLoading()?'inline-block':'none'}"></busy-indicator>
+            </h4>            
+            <select class="form-control" data-bind="enable: (members().length>0), event: { change: showMP }, select2: { placeholder: 'abc' }, options: members, value: selectedMPId, optionsText: 'name', optionsValue: 'id'" />            
         </div>
     </div>
 </div>

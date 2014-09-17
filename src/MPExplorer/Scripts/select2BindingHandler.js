@@ -3,7 +3,7 @@
         var obj = valueAccessor(),
             allBindings = allBindingsAccessor(),
             lookupKey = allBindings.lookupKey;
-        
+
         $(element).select2(obj);
         if (lookupKey) {
             var value = ko.utils.unwrapObservable(allBindings.value);

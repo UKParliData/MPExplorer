@@ -5,6 +5,7 @@
 
             self.header = params.header;
             self.value = params.value;
+            self.isLoading = params.isLoading;
         },
         template: htmlText
     }

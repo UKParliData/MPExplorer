@@ -69,6 +69,7 @@
     <Content Include="Content\css\select2x2.png" />
     <Content Include="Content\MPExplorer.css" />
     <Content Include="Content\select2-bootstrap.css" />
+    <Content Include="Content\spinkit.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -79,6 +80,9 @@
     <Content Include="modules\mpselector.html" />
     <Content Include="modules\mpviewer.html" />
     <Content Include="modules\mpvoter.html" />
+    <Content Include="modules\questionlist.html" />
+    <Content Include="modules\busyindicator.html" />
+    <Content Include="modules\questionviewer.html" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -104,10 +108,13 @@
     <Content Include="Scripts\modules\mpselector.js" />
     <Content Include="Scripts\modules\mpviewer.js" />
     <Content Include="Scripts\modules\mpvoter.js" />
-    <Content Include="Scripts\modules\select2BindingHandler.js" />
+    <Content Include="Scripts\modules\questionlist.js" />
+    <Content Include="Scripts\modules\questionviewer.js" />
+    <Content Include="Scripts\select2BindingHandler.js" />
+    <Content Include="Scripts\MPExplorer.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\modules\master.js" />
+    <Content Include="Scripts\modules\conductor.js" />
     <Content Include="Scripts\Select2-locales\select2_locale_ar.js" />
     <Content Include="Scripts\Select2-locales\select2_locale_az.js" />
     <Content Include="Scripts\Select2-locales\select2_locale_bg.js" />

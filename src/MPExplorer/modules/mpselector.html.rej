@@ -1,0 +1,11 @@
+diff a/src/MPExplorer/modules/mpselector.html b/src/MPExplorer/modules/mpselector.html	(rejected hunks)
+@@ -2,7 +2,7 @@
+     <div class="col-lg-offset-4 col-lg-4 vcenter">
+         <div class="content form-group">
+             <h4>Choose an MP</h4>            
+-            <select data-bind="enable: (members().length > 0) && (selectedMPId() == null), options: members, optionsText: 'name', optionsValue: 'id', value: selectedMPId, event: { change: showMP }, select2: { placeholder: 'Choose an MP' }" class="select2"></select>
++            <select data-bind="enable: (members().length > 0) && (selectedMPId() == null), options: members, optionsText: 'name', optionsValue: 'id', value: selectedMPId, event: {change: showMP}, select2: { placeholder: 'Choose an MP' }" class="select2"></select>
+         </div>
+     </div>
+ </div>
+\ No newline at end of file
