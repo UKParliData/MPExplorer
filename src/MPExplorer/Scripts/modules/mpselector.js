@@ -1,5 +1,10 @@
 ﻿var mp = function (urlId, name, party) {
-    this.id = urlId.substring(urlId.lastIndexOf("/") + 1);
+    var splitUrl = urlId.split("/");
+    var idIndex = splitUrl.length - 1;
+    if (splitUrl[idIndex] === "")
+        idIndex = splitUrl.length - 2;
+    this.url = urlId;
+    this.id = urlId.split("/")[idIndex];
     this.name = name;
     this.party = party;
 }
@@ -24,18 +29,20 @@ define(['Scripts/text!modules/mpselector.html', 'Scripts/select2', 'Scripts/sele
             });            
 
             self.showMP = function () {
-                if ((self.selectedMPId() != null) && (self.selectedMPId() > 0)) {
+                if ((self.selectedMPId() != null) && (self.isLoading()==false)) {
                     conductorVM.parameters({ selectedMP: self.selectedMP() });
                     conductorVM.selectedComponent("mp-voter");
                 }
             };
             self.retriveMPs=function(data){
                 var mps = [];
-                mps.push(new mp("/0", "", ""));
+
+                mps.push(new mp("//", "", ""));
                 if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                     for (var i = 0; i < data.result.items.length; i++)
                         mps.push(new mp(data.result.items[i]._about, data.result.items[i].fullName, data.result.items[i].party));
                 self.members(mps);
+                self.selectedMPId(null);
                 self.isLoading(false);
             };
 

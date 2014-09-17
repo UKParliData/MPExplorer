@@ -15,14 +15,24 @@ var division = function (urlId, divisiondate, isAye) {
 }
 
 var oralQuestion = function (urlId, dateTabled) {
-    this.id = urlId.substring(urlId.lastIndexOf("/") + 1);
+    var splitUrl = urlId.split("/");
+    var idIndex = splitUrl.length - 1;
+    if (splitUrl[idIndex] === "")
+        idIndex = splitUrl.length - 2;
+    this.url = urlId;
+    this.id = urlId.split("/")[idIndex];
     this.date = dateTabled;
     this.yearMonth = dateTabled.split("-")[0] + " " + months[dateTabled.split("-")[1] - 1];
     this.sortDate = dateTabled.split("-")[0] + dateTabled.split("-")[1];
 }
 
 var writtenQuestion = function (urlId, dateTabled) {
-    this.id = urlId.substring(urlId.lastIndexOf("/") + 1);
+    var splitUrl = urlId.split("/");
+    var idIndex = splitUrl.length - 1;
+    if (splitUrl[idIndex] === "")
+        idIndex = splitUrl.length - 2;
+    this.url = urlId;
+    this.id = urlId.split("/")[idIndex];
     this.date = dateTabled;
     this.yearMonth = dateTabled.split("-")[0] + " " + months[dateTabled.split("-")[1] - 1];
     this.sortDate = dateTabled.split("-")[0] + dateTabled.split("-")[1];
@@ -71,9 +81,9 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
             };
 
             self.chartSelection = function (selectedChart) {
-                self.selectedChart(selectedChart);
-                self.selectedBarData([]);
                 self.dataset([]);
+                self.selectedBarData([]);
+                self.selectedChart(selectedChart);
                 if ((selectedChart == 1) && (self.divisions.length > 0)) {
                     self.chartHeader("Number of votes per calendar month");
                     self.dataset(self.divisions);

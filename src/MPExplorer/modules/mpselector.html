@@ -4,7 +4,7 @@
             <h4>Choose an MP
                 <busy-indicator class="pull-right" data-bind="style:{display:isLoading()?'inline-block':'none'}"></busy-indicator>
             </h4>            
-            <select class="form-control" data-bind="enable: (members().length>0), event: { change: showMP }, select2: { placeholder: 'abc' }, options: members, value: selectedMPId, optionsText: 'name', optionsValue: 'id'" />            
+            <select class="form-control" data-bind="enable: (members().length>0), event: { change: showMP }, select2: { placeholder: 'Please select' }, options: members, value: selectedMPId, optionsText: 'name', optionsValue: 'id'" />            
         </div>
     </div>
 </div>
