@@ -7,7 +7,7 @@
     <generic-header params="header: 'Number of written questions', value: numberOfWrittenQuestions, isLoading: isWrittenQuestionsLoading" data-bind="click: chartSelection.bind($root,3)"></generic-header>
 </div>
 <!-- ko if: chartHeader() != null -->
-    <chart-viewer params="header: chartHeader, data: dataset, clickCallback: barClick"></chart-viewer>
+    <chart-viewer params="chartId: 'chartVote', header: chartHeader, data: dataset, clickCallback: barClick"></chart-viewer>
 <!-- /ko -->
 <div class="row">
     <div class="col-lg-12">

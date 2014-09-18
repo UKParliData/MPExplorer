@@ -1,15 +1,4 @@
-﻿var mp = function (urlId, name, party) {
-    var splitUrl = urlId.split("/");
-    var idIndex = splitUrl.length - 1;
-    if (splitUrl[idIndex] === "")
-        idIndex = splitUrl.length - 2;
-    this.url = urlId;
-    this.id = urlId.split("/")[idIndex];
-    this.name = name;
-    this.party = party;
-}
-
-define(['Scripts/text!modules/mpselector.html', 'Scripts/select2', 'Scripts/select2BindingHandler'], function (htmlText) {
+﻿define(['Scripts/text!modules/mpselector.html', 'Scripts/select2', 'Scripts/select2BindingHandler'], function (htmlText) {
     var css1 = require.toUrl("Content/css/select2.css");
     var css2 = require.toUrl("Content/select2-bootstrap.css");
     $("head").append($("<link>", { rel: "stylesheet", media: "all", type: "text/css", href: css1 }));
@@ -37,10 +26,10 @@ define(['Scripts/text!modules/mpselector.html', 'Scripts/select2', 'Scripts/sele
             self.retriveMPs=function(data){
                 var mps = [];
 
-                mps.push(new mp("//", "", ""));
+                mps.push(new MPExplorer.MP("//", "", ""));
                 if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                     for (var i = 0; i < data.result.items.length; i++)
-                        mps.push(new mp(data.result.items[i]._about, data.result.items[i].fullName, data.result.items[i].party));
+                        mps.push(new MPExplorer.MP(data.result.items[i]._about, data.result.items[i].fullName, data.result.items[i].party));
                 self.members(mps);
                 self.selectedMPId(null);
                 self.isLoading(false);

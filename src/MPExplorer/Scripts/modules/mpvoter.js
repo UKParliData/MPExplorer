@@ -1,7 +1,4 @@
-﻿var months=["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-
-var division = function (urlId, divisiondate, isAye) {
+﻿var division = function (urlId, divisiondate, isAye) {
     var splitUrl = urlId.split("/");
     var idIndex = splitUrl.length - 1;
     if (splitUrl[idIndex] === "")
@@ -10,7 +7,7 @@ var division = function (urlId, divisiondate, isAye) {
     this.id = urlId.split("/")[idIndex];
     this.isAye = isAye;
     this.date = divisiondate;
-    this.yearMonth = divisiondate.split("-")[0] + " " + months[divisiondate.split("-")[1] - 1];
+    this.yearMonth = divisiondate.split("-")[0] + " " + MPExplorer.months[divisiondate.split("-")[1] - 1];
     this.sortDate = divisiondate.split("-")[0] + divisiondate.split("-")[1];
 }
 
@@ -22,7 +19,7 @@ var oralQuestion = function (urlId, dateTabled) {
     this.url = urlId;
     this.id = urlId.split("/")[idIndex];
     this.date = dateTabled;
-    this.yearMonth = dateTabled.split("-")[0] + " " + months[dateTabled.split("-")[1] - 1];
+    this.yearMonth = dateTabled.split("-")[0] + " " + MPExplorer.months[dateTabled.split("-")[1] - 1];
     this.sortDate = dateTabled.split("-")[0] + dateTabled.split("-")[1];
 }
 
@@ -34,7 +31,7 @@ var writtenQuestion = function (urlId, dateTabled) {
     this.url = urlId;
     this.id = urlId.split("/")[idIndex];
     this.date = dateTabled;
-    this.yearMonth = dateTabled.split("-")[0] + " " + months[dateTabled.split("-")[1] - 1];
+    this.yearMonth = dateTabled.split("-")[0] + " " + MPExplorer.months[dateTabled.split("-")[1] - 1];
     this.sortDate = dateTabled.split("-")[0] + dateTabled.split("-")[1];
 }
 

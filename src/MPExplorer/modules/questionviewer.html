@@ -6,11 +6,20 @@
                     <busy-indicator data-bind="style:{display:isLoading()?'block':'none'}"></busy-indicator>
                 </div>
                 <div data-bind="visible: isLoading()==false">
-                    <h4 data-bind="text: questionText"></h4>
+                    <h4 data-bind="text: questionText"></h4>                    
+                    <div><strong>Title </strong><text data-bind="text: title"></text></div>
                     <div><strong>Answer date </strong><text data-bind="text: answerDate"></text></div>
-                    <div><strong>Answering body </strong><text data-bind="text: answeringBody"></text></div>
+                    <div><strong>Answering body </strong><a class="clickable" data-bind="text: answeringBody, click: showAnsweringBodyQuestions"></a></div>
                 </div>
             </div>         
         </div>
     </div>
 </div>
+<!-- ko if: isAnsweringBodyQuestionsChart() == true -->
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <chart-viewer params="chartId: 'chartTQ', header: 'Tabled questions by month', data: questionsAnswered, clickCallback: barClick"></chart-viewer>
+            <chart-viewer params="chartId: 'chartAQ', header: 'Answered questions by month', data: questionsTabled, clickCallback: barClick"></chart-viewer>
+        </div>
+    </div> 
+<!-- /ko -->

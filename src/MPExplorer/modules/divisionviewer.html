@@ -5,29 +5,66 @@
                 <div class="col-sm-offset-5 col-sm-1">
                     <busy-indicator data-bind="style:{display:isLoading()?'block':'none'}"></busy-indicator>
                 </div>
-                <div data-bind="visible: isLoading() == false">
+                <div data-bind="visible: (isLoading() == false) && (isShowPartyList()==true)">
                     <h4 data-bind="text: divisionTitle"></h4>
-                    <table class="table table-condensed" data-bind="visible:isLoading()==false">
+                    <table class="table table-condensed">
                         <thead>
                             <tr>
-                                <th style="width: 20%">Noes</th>
-                                <th style="width: 20%">Ayes</th>
-                                <th style="width: 20%">Abstain</th>
-                                <th style="width: 20%">Did not vote</th>
-                                <th style="width: 20%">Error vote</th>
+                                <th style="width: 25%"></th>
+                                <th style="width: 15%">Noes</th>
+                                <th style="width: 15%">Ayes</th>
+                                <th style="width: 15%">Abstain</th>
+                                <th style="width: 15%">Did not vote</th>
+                                <th style="width: 15%">Error vote</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody data-bind="foreach: votingParties">
                             <tr>
-                                <td style="width: 20%" data-bind="text: noesCount"></td>
-                                <td style="width: 20%" data-bind="text: ayesCount"></td>                   
-                                <td style="width: 20%" data-bind="text: abstainCount"></td>
-                                <td style="width: 20%" data-bind="text: didNotVoteCount"></td>
-                                <td style="width: 20%" data-bind="text: errorVoteCount"></td>
+                                <td style="width: 25%;font-weight: bold;">
+                                    <!-- ko if: index==-1 -->
+                                        <text data-bind="text: name"></text>
+                                    <!-- /ko -->
+                                    <!-- ko if: index>-1 -->
+                                        <a class="clickable" data-bind="text: name, click: $parent.showPartyList"></a>
+                                    <!-- /ko -->
+                                </td>
+                                <td class="text-center" style="width: 15%" data-bind="text: noesCount"></td>
+                                <td class="text-center" style="width: 15%" data-bind="text: ayesCount"></td>                   
+                                <td class="text-center" style="width: 15%" data-bind="text: abstainCount"></td>
+                                <td class="text-center" style="width: 15%" data-bind="text: didNotVoteCount"></td>
+                                <td class="text-center" style="width: 15%" data-bind="text: errorVoteCount"></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>   
+                <div data-bind="visible: (isLoading() == false) && (isShowPartyList() == false)">
+                    <h4 data-bind="text: partyName"></h4>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%"></th>
+                                <th style="width: 15%">Noes</th>
+                                <th style="width: 15%">Ayes</th>
+                                <th style="width: 15%">Abstain</th>
+                                <th style="width: 15%">Did not vote</th>
+                                <th style="width: 15%">Error vote</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: votingMembers">
+                            <tr>
+                                <td style="width: 25%;">
+                                    <a class="clickable" data-bind="text: mp.name, click: $parent.showMP"></a>
+                                </td>
+                                <td class="text-center" style="width: 15%"><span data-bind="css: { 'badge': noesCount == 1 }, text: noesCount == 1 ? 'X' : ''"></span></td>
+                                <td class="text-center" style="width: 15%"><span data-bind="css: { 'badge': ayesCount == 1 }, text: ayesCount == 1 ? 'X' : ''"></span></td>                   
+                                <td class="text-center" style="width: 15%"><span data-bind="css: { 'badge': abstainCount == 1 }, text: abstainCount == 1 ? 'X' : ''"></span></td>
+                                <td class="text-center" style="width: 15%"><span data-bind="css: { 'badge': didNotVoteCount == 1 }, text: didNotVoteCount == 1 ? 'X' : ''"></span></td>
+                                <td class="text-center" style="width: 15%"><span data-bind="css: { 'badge': errorVoteCount == 1 }, text: errorVoteCount == 1 ? 'X' : ''"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary" data-bind="click: isShowPartyList.bind($root,true)">Back to party list</button>
+                </div> 
             </div>         
         </div>
     </div>

@@ -1,11 +1,11 @@
 ﻿<div class="row">
-    <div class="col-lg-offset-1 col-lg-10">
+    <div class="col-md-offset-1 col-md-10">
         <div class="row text-center">
             <h4 data-bind="text: header"></h4>            
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <svg class="chart"></svg>
+            <div class="col-md-12">
+                <svg class="chart" data-bind="attr: { id: chartId }, d3js: { chartId: chartId, data: data, clickCallback: clickCallback }"></svg>
             </div>
         </div>        
     </div>    

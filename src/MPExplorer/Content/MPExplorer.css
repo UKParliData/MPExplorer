@@ -16,6 +16,14 @@
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
 }
 
+.badge-success {
+    background-color: #3c763d!important;
+}
+
+.badge-danger {
+    background-color: #a94442!important;
+}
+
 .select2 {
     width: 100%;
 }
