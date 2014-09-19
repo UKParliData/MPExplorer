@@ -1,0 +1,24 @@
+﻿<div class="col-sm-offset-5 col-sm-1" data-bind="visible: isLoading">
+    <busy-indicator></busy-indicator>
+</div>
+<div data-bind="visible: isLoading()==false">
+    <h4 data-bind="text: header"></h4>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th style="width: 10%">Tabled</th>
+                <th style="width: 10%">Answered</th>
+                <th style="width: 25%">Member</th>
+                <th style="width: 55%">Question</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: questions">
+            <tr>
+                <td style="width: 10%" data-bind="text: dateTabled"></td>                    
+                <td style="width: 10%" data-bind="text: dateAnswered"></td>
+                <td style="width: 25%" data-bind="text: tablingMember"></td>
+                <td style="width: 55%" data-bind="text: questionText"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

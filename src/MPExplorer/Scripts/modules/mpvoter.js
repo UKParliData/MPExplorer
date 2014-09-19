@@ -50,6 +50,9 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
             self.isOralQuestionsLoading = ko.observable(true);
             self.isWrittenQuestionsLoading = ko.observable(true);
             self.selectedBarData = ko.observableArray([]);
+            self.isStackedType = ko.observable(null);
+            self.seriesNames = ko.observableArray([]);
+            self.questionUrl = ko.observable();
 
             self.barClick = function (data) {
                 var arr = [];
@@ -60,39 +63,76 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
                         break;
                     case 2:
                         source = self.oralQuestions;
+                        self.questionUrl("commonsoralquestions");
                         break;
                     case 3:
                         source = self.writtenQuestions;
+                        self.questionUrl("commonswrittenquestions");
                         break;
                 }
                 for (var i = 0; i < source.length; i++)
-                    if (source[i].sortDate == data.sortDate)
+                    if (source[i].sortDate == data.sortValue)
                         arr.push(source[i]);
                 arr.sort(function (left, right) {
                     return left.date === right.date ? left.index - right.index : left.date > right.date ? 1 : -1;
                 });
                 for (var i = 0; i < arr.length; i++)
                     arr[i].index = i + 1;
-                self.selectedYearMonth(data.date);
+                self.selectedYearMonth(data.categoryValue);
                 self.selectedBarData(arr);
             };
 
+            self.convertToChartItems = function (dataset, isAyeNo) {
+                var items = [];
+
+                for (var i = 0; i < dataset.length; i++) {
+                    isFound = false;
+                    for (j = 0; j < items.length; j++)
+                        if (items[j].categoryValue === dataset[i].yearMonth) {
+                            if (isAyeNo) {
+                                if (dataset[i].isAye)
+                                    items[j].values[0] += 1;
+                                else
+                                    items[j].values[1] += 1;
+                            }
+                            else
+                                items[j].values[0] += 1;
+                            isFound = true;
+                            break;
+                        }
+                    if (isFound == false)
+                        items.push(new MPExplorer.ChartItem(i, isAyeNo ? [dataset[i].isAye ? 1 : 0, dataset[i].isAye ? 0 : 1] : [1], dataset[i].yearMonth, dataset[i].sortDate));
+                }
+
+                items.sort(function (left, right) {
+                    return left.sortValue === right.sortValue ? left.index - right.index : left.sortValue > right.sortValue ? 1 : -1;
+                });
+                return items;
+            };
+
             self.chartSelection = function (selectedChart) {
-                self.dataset([]);
+                var items = [];
                 self.selectedBarData([]);
-                self.selectedChart(selectedChart);
+                self.selectedChart(selectedChart);                
                 if ((selectedChart == 1) && (self.divisions.length > 0)) {
                     self.chartHeader("Number of votes per calendar month");
-                    self.dataset(self.divisions);
+                    self.isStackedType(true);
+                    self.seriesNames(["Aye","No"]);
+                    items = self.convertToChartItems(self.divisions, self.isStackedType());
                 }
                 if ((selectedChart == 2) && (self.oralQuestions.length > 0)) {
                     self.chartHeader("Number of oral questions per calendar month");
-                    self.dataset(self.oralQuestions);
+                    self.isStackedType(false);
+                    self.seriesNames(["Oral question"]);
+                    items = self.convertToChartItems(self.oralQuestions, self.isStackedType());
                 }
                 if ((selectedChart == 3) && (self.writtenQuestions.length > 0)) {
                     self.chartHeader("Number of written questions per calendar month");
-                    self.dataset(self.writtenQuestions);
+                    self.isStackedType(false);
+                    self.seriesNames(["Written question"]);
+                    items = self.convertToChartItems(self.writtenQuestions, self.isStackedType());
                 }
+                self.dataset(items);
             };
 
             self.numberOfVotes = ko.observable();

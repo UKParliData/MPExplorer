@@ -7,19 +7,18 @@
     <generic-header params="header: 'Number of written questions', value: numberOfWrittenQuestions, isLoading: isWrittenQuestionsLoading" data-bind="click: chartSelection.bind($root,3)"></generic-header>
 </div>
 <!-- ko if: chartHeader() != null -->
-    <chart-viewer params="chartId: 'chartVote', header: chartHeader, data: dataset, clickCallback: barClick"></chart-viewer>
+    <chart-viewer params="chartId: 'chartVote', header: chartHeader, data: dataset, clickCallback: barClick, isStackedType: isStackedType, seriesNames: seriesNames"></chart-viewer>
 <!-- /ko -->
 <div class="row">
     <div class="col-lg-12">
-        <span data-bind="visible: ((selectedChart() != null) && (dataset().length > 0) && (selectedBarData().length == 0))">Click on a column to see details</span>
         <!-- ko if: ((selectedChart() == 1) && (selectedBarData().length>0)) -->
             <division-list params="date: selectedYearMonth, divisions: selectedBarData"></division-list>
         <!-- /ko -->
         <!-- ko if: ((selectedChart() == 2) && (selectedBarData().length>0)) -->
-            <question-list params="date: selectedYearMonth, questions: selectedBarData"></question-list>
+            <question-list params="date: selectedYearMonth, questions: selectedBarData, questionUrl: questionUrl"></question-list>
         <!-- /ko -->
         <!-- ko if: ((selectedChart() == 3) && (selectedBarData().length>0)) -->
-            <question-list params="date: selectedYearMonth, questions: selectedBarData"></question-list>
+            <question-list params="date: selectedYearMonth, questions: selectedBarData, questionUrl: questionUrl"></question-list>
         <!-- /ko -->
     </div>
 </div>

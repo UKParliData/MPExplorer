@@ -13,8 +13,9 @@ define(['Scripts/modules/conductor'], function (conductor) {
     ko.components.register('division-viewer', { require: 'Scripts/modules/divisionviewer.js' });
     ko.components.register('question-list', { require: 'Scripts/modules/questionlist.js' });
     ko.components.register('question-viewer', { require: 'Scripts/modules/questionviewer.js' });
+    ko.components.register('full-question-list', { require: 'Scripts/modules/fullquestionlist.js' });
     ko.components.register('busy-indicator', { template: { require: 'Scripts/text!modules/busyindicator.html' } });
-    
+
     window.conductorVM = new conductor();
     window.MPExplorer = new MPExplorer.Generic();    
     ko.applyBindings(conductorVM);

@@ -16,34 +16,26 @@
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
 }
 
-.badge-success {
-    background-color: #3c763d!important;
-}
-
-.badge-danger {
-    background-color: #a94442!important;
-}
-
 .select2 {
     width: 100%;
 }
 
-.ayebar {
-  fill: #3c763d;
+.bar1 {
+  fill: #008FFA;
   cursor:pointer;
 }
 
-.ayebar:hover {
-  fill: #2b542c;
+.bar1:hover {
+  fill: #4BB0FB;
 }
 
-.nobar {
-  fill: #a94442;
+.bar2 {
+  fill: #FF9E2D;
   cursor:pointer;
 }
 
-.nobar:hover {
-  fill: #843534;
+.bar2:hover {
+  fill: #FFB473;
 }
 
 .chart text {

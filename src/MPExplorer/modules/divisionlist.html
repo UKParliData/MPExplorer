@@ -16,7 +16,7 @@
                         <tr>
                             <td style="width: 10%" data-bind="text: index"></td>
                             <td style="width: 30%" data-bind="text: date"></td>                    
-                            <td style="width: 20%" class="text-center"><span class="badge" data-bind="css: { 'badge-success': isAye == true, 'badge-danger': isAye == false }, text: isAye?'Aye':'No'"></span></td>
+                            <td style="width: 20%" class="text-center"><span class="badge" data-bind="text: isAye?'Aye':'No'"></span></td>
                             <td style="width: 40%"><a class="clickable" data-bind="click: $parent.showDivision">More info</a></td>
                         </tr>
                     </tbody>

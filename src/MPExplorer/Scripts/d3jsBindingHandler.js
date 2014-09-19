@@ -1,44 +1,17 @@
-﻿var generateChart = function (chartId, values, selectBar) {
+﻿var generateChart = function (chartId, data, selectBarCallback, isStackedType, seriesNames) {
     var totals = [];
     var isFound = false;
     var categories = [];
-    var isAyeNo = (values != null) && (values.length > 0) && (values[0].isAye != null);
+    
+    if ((data == null) || ((data != null) && (data.length == 0)))
+        return;
 
-    for (var i = 0; i < values.length; i++) {
-        isFound = false;
-        for (j = 0; j < totals.length; j++)
-            if (totals[j].date === values[i].yearMonth) {
-                totals[j].value += 1;
-                if (isAyeNo) {
-                    if (values[i].isAye)
-                        totals[j].aye += 1;
-                    else
-                        totals[j].no += 1;
-                }
-                isFound = true;
-                break;
-            }
-        if (isFound == false)
-            totals.push({
-                sortDate: values[i].sortDate,
-                date: values[i].yearMonth,
-                value: 1,
-                aye: isAyeNo ? values[i].isAye ? 1 : 0 : null,
-                no: isAyeNo ? values[i].isAye ? 0 : 1 : null,
-                index: i
-            });
-    }
-
-    totals.sort(function (left, right) {
-        return left.sortDate === right.sortDate ? left.index - right.index : left.sortDate > right.sortDate ? 1 : -1;
-    });
-
-    var maxValue = 0;
-    for (var i = 0; i < totals.length; i++) {
-        if (totals[i].value > maxValue)
-            maxValue = totals[i].value;
-        if ((Math.floor(totals.length / 10) == 0) || (i % Math.floor(totals.length / 10) == 0))
-            categories.push(totals[i].date);
+    var seriesCount = data[0].values.length;
+    var maxValue = d3.max(data, function (d) { return isStackedType ? d3.sum(d.values) : d3.max(d.values); });
+    
+    for (var i = 0; i < data.length; i++) {
+        if ((Math.floor(data.length / 10) == 0) || (i % Math.floor(data.length / 10) == 0))
+            categories.push(data[i].categoryValue);
     }
 
     var margin = { top: 30, right: 30, bottom: 30, left: 30 };
@@ -54,33 +27,42 @@
     var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);
     var y = d3.scale.linear().range([height, 0]);
 
-    x.domain(totals.map(function (d) { return d.date; }));
-    y.domain([0, d3.max(totals, function (d) { return d.value; })]);
+    x.domain(data.map(function (d) { return d.categoryValue; }));
+    y.domain([0, maxValue]);
+    
+    var bar = chart.selectAll("g").data(data).enter().append("g")
+        .attr("transform", function (d) { return "translate(" + x(d.categoryValue) + ",0)"; });
 
-    var bar = chart.selectAll("g").data(totals).enter().append("g")
-        .attr("transform", function (d) { return "translate(" + x(d.date) + ",0)"; });
-
-    bar.append("rect")
-        .on("click", function (d) { selectBar(d); })
-        .attr("class", "ayebar")
-        .attr("height", function (d) { return 0; })
-        .attr("y", function (d) { return height; })
-        .attr("width", x.rangeBand())
-        .transition().duration(1500)
-        .attr("height", function (d) { return height - (isAyeNo ? y(d.aye) : y(d.value)); })
-        .attr("y", function (d) { return isAyeNo ? y(d.aye) : y(d.value); });
-
-    if (isAyeNo) {
+    for (var i = 0; i < seriesCount; i++) {
         bar.append("rect")
-            .on("click", function (d) { selectBar(d); })
-            .attr("class", "nobar")
-            .attr("height", function (d) { return height - y(d.aye); })
-            .attr("y", function (d) { return y(d.aye); })
-            .attr("width", x.rangeBand())
+            .on("click", function (d) { selectBarCallback(d); })
+            .attr("class", "bar" + (i + 1).toString())
+            .attr("height", function (d) { return isStackedType ? i == 0 ? 0 : height - y(d.values[i - 1]) : 0; })
+            .attr("y", function (d) { return isStackedType ? i == 0 ? height : y(d.values[i - 1]) : height; })
+            .attr("x", isStackedType ? 0 : i == 0 ? 0 : x.rangeBand() - (i * (x.rangeBand() / seriesCount)))
+            .attr("width", isStackedType ? x.rangeBand() : (x.rangeBand() / seriesCount) - 1)
             .transition().duration(1500)
-            .attr("height", function (d) { return height - y(d.no); })
-            .attr("y", function (d) { return height - ((height - y(d.aye)) + (height - y(d.no))); });
+            .attr("height", function (d) { return height - y(d.values[i]); })
+            .attr("y", function (d) { return isStackedType ? height - (d3.sum(d.values.slice(0, i + 1), function (v) { return height - y(v); })) : y(d.values[i]); });
     }
+    
+    var colors = ["#008FFA", "#FF9E2D"].slice(0, seriesCount);
+
+    var legend = chart.selectAll(".legend").data(colors).enter().append("g")
+      .attr("class", "legend").attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .attr("fill", function (d) { return d; });
+
+    legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function (d, i) { return seriesNames[i]; });
 
     var xAxis = d3.svg.axis().tickValues(categories).scale(x).orient("bottom");
     var yAxis = d3.svg.axis().tickValues([Math.floor(maxValue / 2), maxValue]).tickFormat(d3.format("d")).scale(y).orient("left");
@@ -93,10 +75,10 @@
 ko.bindingHandlers.d3js = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var allBindings = allBindingsAccessor();        
-        generateChart(allBindings.d3js.chartId(), allBindings.d3js.data(), allBindings.d3js.clickCallback);
+        generateChart(allBindings.d3js.chartId(), allBindings.d3js.data(), allBindings.d3js.clickCallback, allBindings.d3js.isStackedType(), ko.unwrap(allBindings.d3js.seriesNames));
     },
     update: function (element, valueAccessor, allBindingsAccessor) {
         var allBindings = allBindingsAccessor();
-        generateChart(allBindings.d3js.chartId(), allBindings.d3js.data(), allBindings.d3js.clickCallback);
+        generateChart(allBindings.d3js.chartId(), allBindings.d3js.data(), allBindings.d3js.clickCallback, allBindings.d3js.isStackedType(), ko.unwrap(allBindings.d3js.seriesNames));
     }
 };

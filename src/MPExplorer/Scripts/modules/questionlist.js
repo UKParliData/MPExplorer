@@ -4,7 +4,8 @@
             var self = this;
 
             self.date = params.date;
-            self.questions = params.questions;            
+            self.questions = params.questions;
+            self.questionUrl = params.questionUrl;
             self.selectedQuestion = ko.observable(null);
 
             self.showQuestion = function () {

@@ -76,6 +76,7 @@
     <Content Include="index.html" />
     <Content Include="modules\chartviewer.html" />
     <Content Include="modules\divisionlist.html" />
+    <Content Include="modules\fullquestionlist.html" />
     <Content Include="modules\genericheader.html" />
     <Content Include="modules\mpselector.html" />
     <Content Include="modules\mpviewer.html" />
@@ -102,6 +103,7 @@
     <Content Include="Scripts\modules\divisionlist.js" />
     <Content Include="modules\divisionviewer.html" />
     <Content Include="Scripts\modules\divisionviewer.js" />
+    <Content Include="Scripts\modules\fullquestionlist.js" />
     <Content Include="Scripts\modules\genericheader.js" />
     <Content Include="Scripts\modules\main.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />

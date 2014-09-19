@@ -27,6 +27,13 @@
                 this.party = party;
             }
 
+            Generic.prototype.ChartItem = function (index, values, categoryValue, sortValue) {
+                this.index = index;
+                this.values = values;
+                this.categoryValue = categoryValue;
+                this.sortValue = sortValue;
+            }
+
             Generic.prototype.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
             return Generic;

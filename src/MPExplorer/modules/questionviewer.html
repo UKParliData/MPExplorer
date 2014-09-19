@@ -18,8 +18,14 @@
 <!-- ko if: isAnsweringBodyQuestionsChart() == true -->
     <div class="panel panel-default">
         <div class="panel-body">
-            <chart-viewer params="chartId: 'chartTQ', header: 'Tabled questions by month', data: questionsAnswered, clickCallback: barClick"></chart-viewer>
-            <chart-viewer params="chartId: 'chartAQ', header: 'Answered questions by month', data: questionsTabled, clickCallback: barClick"></chart-viewer>
+            <chart-viewer params="chartId: 'chartQ', header: 'Questions by month', data: questions, clickCallback: barClick, isStackedType: false, seriesNames: ['Tabled','Answered']"></chart-viewer>
+        </div>
+    </div> 
+<!-- /ko -->
+<!-- ko if: isQuestionsByAnsweringBodyAndMonth()==true -->
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <full-question-list params="questions: questionsByAnsweringBodyAndMonth, header: headerByAnsweringBodyAndMonth, isLoading: isLoadingQuestionsByAnsweringBodyAndMonth"></full-question-list>
         </div>
     </div> 
 <!-- /ko -->
