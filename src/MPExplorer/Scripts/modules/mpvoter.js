@@ -143,14 +143,19 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
             self.writtenQuestions = [];
 
             self.retriveVotes = function (ayes) {
-                MPExplorer.getData("commonsdivisions/no.json?_properties=divisiondate&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, function (noes) {
+                MPExplorer.getData("commonsdivisions/no.json?_properties=date&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, function (noes) {
                     var divisions = [];
+                    var tempDate;
+                    var divisionDate;
+
                     var populateDivisions = function (data, isAye) {
                         if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                             for (var i = 0; i < data.result.items.length; i++)
-                                if ((data.result.items[i].divisiondate != null) && (data.result.items[i].divisiondate.length > 0))
-                                    for (var j = 0; j < data.result.items[i].divisiondate.length; j++)
-                                        divisions.push(new division(data.result.items[i]._about, data.result.items[i].divisiondate[j]._value, isAye));
+                                if ((data.result.items[i].date != null) && (data.result.items[i].date.length > 0)) {
+                                    tempDate = new Date(data.result.items[i].date);
+                                    divisionDate = tempDate.getFullYear() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getDate();
+                                    divisions.push(new division(data.result.items[i]._about, divisionDate, isAye));
+                                }
                     }
                     populateDivisions(ayes, true);
                     populateDivisions(noes, false);
@@ -182,7 +187,7 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
                 self.isWrittenQuestionsLoading(false);
             };
 
-            MPExplorer.getData("commonsdivisions/aye.json?_properties=divisiondate&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveVotes);
+            MPExplorer.getData("commonsdivisions/aye.json?_properties=date&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveVotes);
             
             MPExplorer.getData("commonsoralquestions.json?_properties=dateTabled&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveOralQuestions);
 
