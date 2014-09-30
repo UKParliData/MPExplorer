@@ -13,7 +13,7 @@
 
             self.retriveDivision = function (data) {
                 if ((data != null) && (data.result != null) && (data.result.primaryTopic != null) && (data.result.primaryTopic.vote != null) && (data.result.primaryTopic.vote.length > 0)) {
-                    self.divisionTitle(data.result.primaryTopic.title[0]);
+                    self.divisionTitle(data.result.primaryTopic.fullTitle);
                     var mps = [];
                     for (var i = 0; i < data.result.primaryTopic.vote.length; i++)
                         mps.push({

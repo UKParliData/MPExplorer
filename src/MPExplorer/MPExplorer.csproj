@@ -95,6 +95,7 @@
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\MPExplorer.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3jsBindingHandler.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -145,17 +145,12 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
             self.retriveVotes = function (ayes) {
                 MPExplorer.getData("commonsdivisions/no.json?_properties=date&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, function (noes) {
                     var divisions = [];
-                    var tempDate;
-                    var divisionDate;
 
                     var populateDivisions = function (data, isAye) {
                         if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                             for (var i = 0; i < data.result.items.length; i++)
-                                if ((data.result.items[i].date != null) && (data.result.items[i].date.length > 0)) {
-                                    tempDate = new Date(data.result.items[i].date);
-                                    divisionDate = tempDate.getFullYear() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getDate();
-                                    divisions.push(new division(data.result.items[i]._about, divisionDate, isAye));
-                                }
+                                if (data.result.items[i].date != null) 
+                                    divisions.push(new division(data.result.items[i]._about, data.result.items[i].date._value, isAye));
                     }
                     populateDivisions(ayes, true);
                     populateDivisions(noes, false);
