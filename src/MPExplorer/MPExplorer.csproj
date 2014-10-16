@@ -63,12 +63,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\css\select2-spinner.gif" />
-    <Content Include="Content\css\select2.css" />
-    <Content Include="Content\css\select2.png" />
-    <Content Include="Content\css\select2x2.png" />
     <Content Include="Content\MPExplorer.css" />
     <Content Include="Content\select2-bootstrap.css" />
+    <Content Include="Content\selectize.bootstrap3.css" />
+    <Content Include="Content\selectize.css" />
     <Content Include="Content\spinkit.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
@@ -77,7 +75,6 @@
     <Content Include="modules\chartviewer.html" />
     <Content Include="modules\divisionlist.html" />
     <Content Include="modules\fullquestionlist.html" />
-    <Content Include="modules\genericheader.html" />
     <Content Include="modules\mpselector.html" />
     <Content Include="modules\mpviewer.html" />
     <Content Include="modules\mpvoter.html" />
@@ -105,7 +102,6 @@
     <Content Include="modules\divisionviewer.html" />
     <Content Include="Scripts\modules\divisionviewer.js" />
     <Content Include="Scripts\modules\fullquestionlist.js" />
-    <Content Include="Scripts\modules\genericheader.js" />
     <Content Include="Scripts\modules\main.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
     <Content Include="Scripts\knockout-3.2.0.js" />
@@ -119,57 +115,13 @@
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\modules\conductor.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ar.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_az.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_bg.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ca.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_cs.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_da.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_de.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_el.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_es.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_et.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_eu.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_fa.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_fi.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_fr.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_gl.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_he.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_hr.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_hu.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_id.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_is.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_it.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ja.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ka.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ko.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_lt.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_lv.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_mk.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ms.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_nl.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_no.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_pl.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_pt-BR.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_pt-PT.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ro.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_rs.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ru.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_sk.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_sv.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_th.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_tr.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ua.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_ug-CN.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_uk.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_vi.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_zh-CN.js" />
-    <Content Include="Scripts\Select2-locales\select2_locale_zh-TW.js" />
-    <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\selectize.js" />
+    <Content Include="Scripts\selectize.min.js" />
+    <Content Include="Scripts\selectizeBindingHandler.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\topojson.v1.min.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
@@ -178,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\toastr.min.js.map" />
+    <Content Include="Scripts\modules\westminster.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -13,24 +13,36 @@
     <link rel="stylesheet" type="text/css" href="Content/MPExplorer.css" />    
 </head>
 <body>
-    <header class="panel panel-info">
-        <div class="panel-heading">
-            <span class="clickable" data-bind="click: goHome">
-                <span class="glyphicon glyphicon-user"></span>
-                <span class="glyphicon glyphicon-user"></span>
-                <span class="glyphicon glyphicon-user"></span>
-                <strong>MP Explorer</strong>
-            </span>
+    <nav class="navbar navbar-default navbar-sharp-corners">
+        <div class="container">
+            <div class="navbar-header">
+                <h3 class="clickable text-info" data-bind="click: goHome">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <strong>MP Explorer</strong>
+                </h3>
+            </div>
+            <div class="nav navbar-nav navbar-right pull-bottom-padding-30">
+                <span>
+                    <strong>Data Matters</strong>
+                    <small>by <a href="http://www.data.parliament.uk" target="_blank">DDP</a></small>
+                </span>
+            </div>
         </div>
-    </header>    
+    </nav>     
     <div class="container">
-        <div data-bind="component: { name: selectedComponent, params: parameters }"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div data-bind="component: { name: selectedComponent, params: parameters }"></div>
+            </div>
+        </div>
     </div>    
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/knockout-3.2.0.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/toastr.min.js"></script>
     <script src="Scripts/MPExplorer.js"></script>
+    <!--<script src="Scripts/selectize.min.js"></script>-->
     <script data-main="Scripts/modules/main" src="Scripts/require.js"></script>
 </body>    
 </html>

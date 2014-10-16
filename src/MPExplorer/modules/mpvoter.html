@@ -1,16 +1,26 @@
-﻿<div class="row">
-    <div class="col-lg-3">
-        <mp-viewer params="selectedMP: selectedMP"></mp-viewer>
-    </div>
-    <generic-header params="header: 'Number of votes', value: numberOfVotes, isLoading: isVotesLoading" data-bind="click: chartSelection.bind($root,1)"></generic-header>
-    <generic-header params="header: 'Number of oral questions', value: numberOfOralQuestions, isLoading: isOralQuestionsLoading" data-bind="click: chartSelection.bind($root,2)"></generic-header>
-    <generic-header params="header: 'Number of written questions', value: numberOfWrittenQuestions, isLoading: isWrittenQuestionsLoading" data-bind="click: chartSelection.bind($root,3)"></generic-header>
+﻿<div class="row bottom-buffer">
+    <div class="col-md-12">
+        <mp-viewer params="selectedMP: selectedMP, chartSelection: chartSelection, isVotesLoading: isVotesLoading, isOralQuestionsLoading: isOralQuestionsLoading, isWrittenQuestionsLoading: isWrittenQuestionsLoading, numberOfVotes: numberOfVotes, numberOfOralQuestions: numberOfOralQuestions, numberOfWrittenQuestions: numberOfWrittenQuestions"></mp-viewer>
+    </div>    
 </div>
-<!-- ko if: chartHeader() != null -->
-    <chart-viewer params="chartId: 'chartVote', header: chartHeader, data: dataset, clickCallback: barClick, isStackedType: isStackedType, seriesNames: seriesNames"></chart-viewer>
+<!-- ko if: ((chartHeader() != null) && (selectedBarData().length==0)) -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <!-- ko if: (selectedChart() == 1) -->
+                    <select class="form-control" data-bind="value: selectedSearchId, optionsText: 'title', optionsValue: 'id', options: divisions, optionsCaption: 'Search', selectize: {}" />
+                <!-- /ko -->                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <chart-viewer params="chartId: 'chartVote', header: chartHeader, data: dataset, clickCallback: barClick, isStackedType: isStackedType, seriesNames: seriesNames"></chart-viewer>
+            </div>
+        </div>
+    </div>
 <!-- /ko -->
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
         <!-- ko if: ((selectedChart() == 1) && (selectedBarData().length>0)) -->
             <division-list params="date: selectedYearMonth, divisions: selectedBarData"></division-list>
         <!-- /ko -->

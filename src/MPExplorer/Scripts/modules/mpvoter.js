@@ -1,4 +1,4 @@
-﻿var division = function (urlId, divisiondate, isAye) {
+﻿var division = function (urlId, divisiondate, title, isAye) {
     var splitUrl = urlId.split("/");
     var idIndex = splitUrl.length - 1;
     if (splitUrl[idIndex] === "")
@@ -7,11 +7,12 @@
     this.id = urlId.split("/")[idIndex];
     this.isAye = isAye;
     this.date = divisiondate;
+    this.title = title;
     this.yearMonth = divisiondate.split("-")[0] + " " + MPExplorer.months[divisiondate.split("-")[1] - 1];
     this.sortDate = divisiondate.split("-")[0] + divisiondate.split("-")[1];
 }
 
-var oralQuestion = function (urlId, dateTabled) {
+var oralQuestion = function (urlId, dateTabled, questionText) {
     var splitUrl = urlId.split("/");
     var idIndex = splitUrl.length - 1;
     if (splitUrl[idIndex] === "")
@@ -19,11 +20,12 @@ var oralQuestion = function (urlId, dateTabled) {
     this.url = urlId;
     this.id = urlId.split("/")[idIndex];
     this.date = dateTabled;
+    this.questionText = questionText;
     this.yearMonth = dateTabled.split("-")[0] + " " + MPExplorer.months[dateTabled.split("-")[1] - 1];
     this.sortDate = dateTabled.split("-")[0] + dateTabled.split("-")[1];
 }
 
-var writtenQuestion = function (urlId, dateTabled) {
+var writtenQuestion = function (urlId, dateTabled, questionText) {
     var splitUrl = urlId.split("/");
     var idIndex = splitUrl.length - 1;
     if (splitUrl[idIndex] === "")
@@ -31,28 +33,40 @@ var writtenQuestion = function (urlId, dateTabled) {
     this.url = urlId;
     this.id = urlId.split("/")[idIndex];
     this.date = dateTabled;
+    this.questionText = questionText;
     this.yearMonth = dateTabled.split("-")[0] + " " + MPExplorer.months[dateTabled.split("-")[1] - 1];
     this.sortDate = dateTabled.split("-")[0] + dateTabled.split("-")[1];
 }
 
-define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, htmlText) {
+define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectize', 'Scripts/selectizeBindingHandler'], function (d3, htmlText) {
     return {
         viewModel: function (params) {
             var self = this;
 
             self.selectedMP = params.selectedMP;
-            self.selectedVoting = ko.observable(params.selectedVoting);
-            self.chartHeader=ko.observable(null);
-            self.dataset = ko.observableArray([]);
-            self.selectedYearMonth = ko.observable(null);
-            self.selectedChart = ko.observable(null);
             self.isVotesLoading = ko.observable(true);
             self.isOralQuestionsLoading = ko.observable(true);
             self.isWrittenQuestionsLoading = ko.observable(true);
+            self.numberOfVotes = ko.observable();
+            self.numberOfOralQuestions = ko.observable();
+            self.numberOfWrittenQuestions = ko.observable();
+            self.selectedVoting = ko.observable(params.selectedVoting);
+            self.selectedYearMonth = ko.observable(null);
+            self.selectedChart = ko.observable(null);
             self.selectedBarData = ko.observableArray([]);
+            self.chartHeader = ko.observable(null);
             self.isStackedType = ko.observable(null);
             self.seriesNames = ko.observableArray([]);
+            self.dataset = ko.observableArray([]);            
             self.questionUrl = ko.observable();
+            self.divisions = [];
+            self.oralQuestions = [];
+            self.writtenQuestions = [];
+            self.selectedSearchId = ko.observable(null);
+
+            self.showItemFromSearch = ko.computed(function () {
+                
+            });
 
             self.barClick = function (data) {
                 var arr = [];
@@ -113,11 +127,11 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
             self.chartSelection = function (selectedChart) {
                 var items = [];
                 self.selectedBarData([]);
-                self.selectedChart(selectedChart);                
+                self.selectedChart(selectedChart);
                 if ((selectedChart == 1) && (self.divisions.length > 0)) {
                     self.chartHeader("Number of votes per calendar month");
                     self.isStackedType(true);
-                    self.seriesNames(["Aye","No"]);
+                    self.seriesNames(["Aye", "No"]);
                     items = self.convertToChartItems(self.divisions, self.isStackedType());
                 }
                 if ((selectedChart == 2) && (self.oralQuestions.length > 0)) {
@@ -135,22 +149,15 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
                 self.dataset(items);
             };
 
-            self.numberOfVotes = ko.observable();
-            self.numberOfOralQuestions = ko.observable();
-            self.numberOfWrittenQuestions = ko.observable();
-            self.divisions = [];
-            self.oralQuestions = [];
-            self.writtenQuestions = [];
-
             self.retriveVotes = function (ayes) {
-                MPExplorer.getData("commonsdivisions/no.json?_properties=date&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, function (noes) {
+                MPExplorer.getData("commonsdivisions/no.json?_properties=date,title&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, function (noes) {
                     var divisions = [];
 
                     var populateDivisions = function (data, isAye) {
                         if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                             for (var i = 0; i < data.result.items.length; i++)
-                                if (data.result.items[i].date != null) 
-                                    divisions.push(new division(data.result.items[i]._about, data.result.items[i].date._value, isAye));
+                                if (data.result.items[i].date != null)
+                                    divisions.push(new division(data.result.items[i]._about, data.result.items[i].date._value, data.result.items[i].title, isAye));
                     }
                     populateDivisions(ayes, true);
                     populateDivisions(noes, false);
@@ -160,33 +167,37 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html'], function (d3, ht
                 });
             };
 
-            self.retriveOralQuestions=function (data) {
+            self.retriveOralQuestions = function (data) {
                 var questions = [];
                 if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                     for (var i = 0; i < data.result.items.length; i++)
                         if ((data.result.items[i].dateTabled != null) && (data.result.items[i].dateTabled._value != null))
-                            questions.push(new oralQuestion(data.result.items[i]._about, data.result.items[i].dateTabled._value));
+                            questions.push(new oralQuestion(data.result.items[i]._about, data.result.items[i].dateTabled._value, data.result.items[i].questionText));
                 self.numberOfOralQuestions(questions.length);
                 self.oralQuestions = questions;
                 self.isOralQuestionsLoading(false);
             };
 
-            self.retriveWrittenQuestions=function (data) {
+            self.retriveWrittenQuestions = function (data) {
                 var questions = [];
                 if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                     for (var i = 0; i < data.result.items.length; i++)
                         if ((data.result.items[i].dateTabled != null) && (data.result.items[i].dateTabled._value != null))
-                            questions.push(new writtenQuestion(data.result.items[i]._about, data.result.items[i].dateTabled._value));
+                            questions.push(new writtenQuestion(data.result.items[i]._about, data.result.items[i].dateTabled._value, data.result.items[i].questionText));
                 self.numberOfWrittenQuestions(questions.length);
                 self.writtenQuestions = questions;
                 self.isWrittenQuestionsLoading(false);
             };
 
-            MPExplorer.getData("commonsdivisions/aye.json?_properties=date&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveVotes);
-            
-            MPExplorer.getData("commonsoralquestions.json?_properties=dateTabled&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveOralQuestions);
+            self.dispose = function () {
+                self.showItemFromSearch.dispose();
+            };
 
-            MPExplorer.getData("commonswrittenquestions.json?_properties=dateTabled&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveWrittenQuestions);
+            MPExplorer.getData("commonsdivisions/aye.json?_properties=date,title&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveVotes);
+
+            MPExplorer.getData("commonsoralquestions.json?_properties=dateTabled,questionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveOralQuestions);
+
+            MPExplorer.getData("commonswrittenquestions.json?_properties=dateTabled,questionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveWrittenQuestions);
 
         },
         template: htmlText

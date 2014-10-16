@@ -5,15 +5,35 @@
 
 .content {
     display:table-cell;
-    vertical-align:middle;    
+    vertical-align:middle;
 }
 
 .clickable {
     cursor:pointer;
 }
 
+.pull-bottom-padding-30 {
+    padding-top: 30px;
+}
+
+.navbar-sharp-corners {
+    border-radius:0px;
+}
+
+.navbar-sharp-corners li {
+    border: none !important;
+}
+
 .panel.clickable:hover {
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+}
+
+.nav li {
+    border: 1px solid #ddd;
+}
+
+.bottom-buffer {
+    margin-bottom: 60px;
 }
 
 .select2 {
@@ -47,4 +67,20 @@
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+}
+
+.westminster {
+    fill: none;
+    stroke: #ddd;
+    shape-rendering: geometricPrecision;
+}
+
+.westminster text{
+    stroke:#333;
+    font-size:10px;
+    font-weight: 100;
+}
+
+.busy-indicator-height {
+    height:15px;    
 }

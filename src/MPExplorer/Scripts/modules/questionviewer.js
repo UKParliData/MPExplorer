@@ -38,7 +38,6 @@ define(['Scripts/text!modules/questionviewer.html'], function (htmlText) {
             self.questionUrl=params.questionUrl;
             self.answeringBody = ko.observable();
             self.answerDate = ko.observable();
-            self.questionText = ko.observable();
             self.title = ko.observable();
             self.isLoading = ko.observable(true);
             self.isAnsweringBodyQuestionsChart = ko.observable(false);
@@ -52,7 +51,6 @@ define(['Scripts/text!modules/questionviewer.html'], function (htmlText) {
                 if ((data != null) && (data.result != null) && (data.result.primaryTopic != null)) {
                     self.answerDate(data.result.primaryTopic.AnswerDate._value);
                     self.answeringBody(data.result.primaryTopic.answeringDepartment);
-                    self.questionText(data.result.primaryTopic.questionText);
                     self.title(data.result.primaryTopic.fullTitle);
                 }
                 self.isLoading(false);
@@ -78,6 +76,7 @@ define(['Scripts/text!modules/questionviewer.html'], function (htmlText) {
                 });
                 self.questionsByAnsweringBodyAndMonth(questions);
                 self.isLoadingQuestionsByAnsweringBodyAndMonth(false);
+                self.isAnsweringBodyQuestionsChart(false);                
                 self.isQuestionsByAnsweringBodyAndMonth(true);
             };
 
@@ -85,7 +84,7 @@ define(['Scripts/text!modules/questionviewer.html'], function (htmlText) {
                 var minDate = data.sortValue.substring(0, 4) + "-" + data.sortValue.substring(4, 6) + "-01";
                 var tempDate = new Date(new Date(data.sortValue.substring(0, 4), data.sortValue.substring(5, 2), 1) - 1);
                 var maxDate = data.sortValue.substring(0, 4) + "-" + data.sortValue.substring(4, 6) + "-" + tempDate.getDate();
-                self.headerByAnsweringBodyAndMonth("Questions in " + data.categoryValue);
+                self.headerByAnsweringBodyAndMonth("Questions in " + data.categoryValue + " to " + self.answeringBody());
                 self.isLoadingQuestionsByAnsweringBodyAndMonth(true);
                 MPExplorer.getData(self.questionUrl() + ".json?_properties=dateTabled,AnswerDate,questionText,tablingMemberPrinted,tablingMember&_view=basic&_page=0&_pageSize=50000&answeringDepartment=" + self.answeringBody() + "&min-dateTabled=" + minDate + "&max-dateTabled=" + maxDate, self.retriveQuestionsByAnsweringBodyAndMonth);
                 //MPExplorer.getData(self.questionUrl() + ".json?_properties=dateTabled,AnswerDate,questionText,tablingMemberPrinted,tablingMember&_view=basic&_page=0&_pageSize=50000&answeringDepartment=" + self.answeringBody() + "&min-AnswerDate=" + minDate + "&max-AnswerDate=" + maxDate, self.retriveQuestionsByAnsweringBodyAndMonth);
@@ -125,11 +124,12 @@ define(['Scripts/text!modules/questionviewer.html'], function (htmlText) {
                             questions.push(new questionAnswerBody(data.result.items[i]._about, data.result.items[i].AnswerDate._value, false));
                         }
                 self.questions(self.convertToChartItems(questions));
+                self.isQuestionsByAnsweringBodyAndMonth(false);
                 self.isAnsweringBodyQuestionsChart(true);
             };
 
             self.showAnsweringBodyQuestions = function () {
-                MPExplorer.getData("commonsoralquestions.json?_properties=dateTabled,AnswerDate&_view=basic&_page=0&_pageSize=50000&answeringDepartment=" + this.answeringBody(), self.retriveQuestionsForAnsweringBody);
+                MPExplorer.getData(self.questionUrl() + ".json?_properties=dateTabled,AnswerDate&_view=basic&_page=0&_pageSize=50000&answeringDepartment=" + this.answeringBody(), self.retriveQuestionsForAnsweringBody);
             };
 
             self.dispose = function () {

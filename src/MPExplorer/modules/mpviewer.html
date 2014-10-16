@@ -1,18 +1,35 @@
-﻿<div class="panel panel-default">
-    <div class="panel-heading">
-        <a data-bind="click: selectMP" class="text-danger pull-right clickable">
-            <span class="glyphicon glyphicon-remove"></span>
+﻿<div class="row">
+    <div class="col-md-1">
+        <a data-bind="click: selectMP" class="text-info pull-right clickable">
+            <h2 class="glyphicon glyphicon-arrow-left"></h2>
         </a>
-        <div class="panel-title">
-            <h4><span data-bind="text: selectedMP.name"></span></h4>            
-        </div>
     </div>
-    <div class="panel-body">
-        <div>
-            <span><strong>Party </strong><text data-bind="text: selectedMP.party"></text></span>
-        </div>
+    <div class="col-md-9">
+        <h2><span data-bind="text: selectedMP.name"></span></h2>
+        <h4><strong>Party </strong><text data-bind="text: selectedMP.party"></text></h4>
+        <h4><strong>Constituency </strong><text data-bind="text: selectedMP.constituency"></text></h4>
+        <ul class="nav nav-pills">
+          <li>
+              <a class="clickable" data-bind="click: chartSelection.bind($root,1)">Votes
+                  <span class="badge pull-right" data-bind="text: numberOfVotes"></span>
+                  <busy-indicator data-bind="style:{display:isVotesLoading()?'inline-block':'none'}"></busy-indicator>
+              </a>
+          </li>
+          <li>
+              <a class="clickable" data-bind="click: chartSelection.bind($root, 2)">Oral questions
+                  <span class="badge pull-right" data-bind="text: numberOfOralQuestions"></span>
+                  <busy-indicator data-bind="style:{display:isOralQuestionsLoading()?'inline-block':'none'}"></busy-indicator>
+              </a>
+          </li>
+          <li>
+              <a class="clickable" data-bind="click: chartSelection.bind($root, 3)">Written questions
+                  <span class="badge pull-right" data-bind="text: numberOfWrittenQuestions"></span>
+                  <busy-indicator data-bind="style:{display:isWrittenQuestionsLoading()?'inline-block':'none'}"></busy-indicator>
+              </a>
+          </li>
+        </ul>
     </div>
-    <!--<div class="col-lg-offset-4 col-lg-4 text-right">
-        <img class="img-thumbnail" />
-    </div>-->
+    <div class="col-md-2">
+        <img data-bind="attr: { src: 'url' + selectedMP.id }"/>
+    </div>
 </div>

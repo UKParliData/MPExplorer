@@ -46,7 +46,7 @@
             .attr("y", function (d) { return isStackedType ? height - (d3.sum(d.values.slice(0, i + 1), function (v) { return height - y(v); })) : y(d.values[i]); });
     }
     
-    var colors = ["#008FFA", "#FF9E2D"].slice(0, seriesCount);
+    var colors = MPExplorer.colours.slice(0, seriesCount);
 
     var legend = chart.selectAll(".legend").data(colors).enter().append("g")
       .attr("class", "legend").attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
