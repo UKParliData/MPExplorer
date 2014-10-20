@@ -26,7 +26,7 @@
                     place = place.toUpperCase();
                     if (place.indexOf("ST ") == 0)
                         place = place.replace("ST ", "ST. ");
-                    place = place.split(" ST ").join(" ST. ").split("&").join("AND").split("(").join("").split(")").join("").split(",").join("");
+                    place = place.split(" ST ").join(" ST. ").split("&").join("AND").split(",").join("");
                     for (var i = 0; i < westminsterConstituency.length; i++)
                         if (westminsterConstituency[i].indexOf(place) >= 0)
                             return westminsterConstituency[i];

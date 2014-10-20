@@ -12,7 +12,7 @@
 
         self.goHome = function () {
             self.selectedComponent("mp-selector");
-        };
+        };        
     }
     return conductorVM;
 });

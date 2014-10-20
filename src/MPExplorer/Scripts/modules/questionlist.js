@@ -4,12 +4,16 @@
             var self = this;
 
             self.date = params.date;
-            self.questions = params.questions;
+            self.questions = params.data;
             self.questionUrl = params.questionUrl;
             self.selectedQuestion = ko.observable(null);
 
             self.showQuestion = function () {
-                self.selectedQuestion(this);
+                window.subConductorVM.subParameters({ 
+                    selectedItem: this, 
+                    questionUrl: self.questionUrl
+                });
+                window.subConductorVM.selectedSubComponent("question-viewer");
             };
         },
         template: htmlText

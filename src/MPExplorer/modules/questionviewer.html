@@ -6,18 +6,10 @@
             </div>
         <!-- /ko -->
         <div data-bind="visible: isLoading()==false">
-            <!-- ko if: ((isAnsweringBodyQuestionsChart() == false) && (isQuestionsByAnsweringBodyAndMonth()==false)) -->
-                <h4 data-bind="text: selectedQuestion().questionText"></h4>                    
-                <h5><strong>Title </strong><text data-bind="text: title"></text></h5>
-                <h5><strong>Answer date </strong><text data-bind="text: answerDate"></text></h5>
-                <h5><strong>Answering body </strong><a class="clickable" data-bind="text: answeringBody, click: showAnsweringBodyQuestions"></a></h5>
-            <!-- /ko -->
-            <!-- ko if: ((isAnsweringBodyQuestionsChart() == true) && (isQuestionsByAnsweringBodyAndMonth()==false)) -->
-                <chart-viewer params="chartId: 'chartQ', header: 'Questions by month to '+answeringBody(), data: questions, clickCallback: barClick, isStackedType: false, seriesNames: ['Tabled','Answered']"></chart-viewer>
-            <!-- /ko -->
-            <!-- ko if: ((isAnsweringBodyQuestionsChart() == false) && (isQuestionsByAnsweringBodyAndMonth()==true)) -->
-                <full-question-list params="questions: questionsByAnsweringBodyAndMonth, header: headerByAnsweringBodyAndMonth, isLoading: isLoadingQuestionsByAnsweringBodyAndMonth"></full-question-list>
-            <!-- /ko -->
+            <h4 data-bind="text: selectedQuestion.questionText"></h4>                    
+            <h5><strong>Title </strong><text data-bind="text: title"></text></h5>
+            <h5><strong>Answer date </strong><text data-bind="text: answerDate"></text></h5>
+            <h5><strong>Answering body </strong><a class="clickable" data-bind="text: answeringBody, click: showAnsweringBodyQuestions"></a></h5>
         </div>
     </div>
 </div>

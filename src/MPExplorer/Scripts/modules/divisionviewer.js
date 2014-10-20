@@ -3,7 +3,7 @@
         viewModel: function (params) {
             var self = this;
 
-            self.selectedDivision = params.selectedDivision;
+            self.selectedDivision = params.selectedItem;
             self.isLoading = ko.observable(true);
             self.votingParties = ko.observableArray([]);
             self.votingMembers = ko.observableArray([]);
@@ -56,7 +56,9 @@
                                         if (self.mps[i].vote == "DIDNOTVOTE")
                                             self.map.select(className).transition().duration(1500).style("fill-opacity", 1).style("fill", "#80B8B2").delay(i * 2);
                             }
-                        }                        
+                        }
+                        else
+                            console.log(self.mps[i].mp.id + ":" + self.mps[i].mp.name + ":" + self.mps[i].mp.constituency + ":" + self.mps[i].mp.westminster);
                     }
                 }
             };
@@ -212,7 +214,7 @@
 
             self.showInfo = ko.computed(function () {
                 self.isLoading(true);
-                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision().id + ".json?_properties=title,,vote.type,vote.memberPrinted,vote.memberParty,vote.member,vote.member.memberPrinted,vote.member.constituency,vote.member.gender&_view=basic", self.retriveDivision);
+                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision.id + ".json?_properties=title,vote.type,vote.memberPrinted,vote.memberParty,vote.member,vote.member.memberPrinted,vote.member.constituency,vote.member.gender&_view=basic", self.retriveDivision);
                 if (self.map == null)
                     self.createMap();
             });

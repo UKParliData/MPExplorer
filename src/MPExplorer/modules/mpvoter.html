@@ -3,32 +3,27 @@
         <mp-viewer params="selectedMP: selectedMP, chartSelection: chartSelection, isVotesLoading: isVotesLoading, isOralQuestionsLoading: isOralQuestionsLoading, isWrittenQuestionsLoading: isWrittenQuestionsLoading, numberOfVotes: numberOfVotes, numberOfOralQuestions: numberOfOralQuestions, numberOfWrittenQuestions: numberOfWrittenQuestions"></mp-viewer>
     </div>    
 </div>
-<!-- ko if: ((chartHeader() != null) && (selectedBarData().length==0)) -->
+<!-- ko if ((selectedSubComponent()=='chart-viewer') && (selectedSearchId()==null)) -->
     <div class="container">
-        <div class="row">
-            <div class="col-md-5">
+        <div class="row pull-bottom-padding">
+            <div class="col-md-12">
                 <!-- ko if: (selectedChart() == 1) -->
                     <select class="form-control" data-bind="value: selectedSearchId, optionsText: 'title', optionsValue: 'id', options: divisions, optionsCaption: 'Search', selectize: {}" />
                 <!-- /ko -->                
+                <!-- ko if: (selectedChart() == 2) -->
+                    <select class="form-control" data-bind="value: selectedSearchId, optionsText: 'questionText', optionsValue: 'id', options: oralQuestions, optionsCaption: 'Search', selectize: {}" />
+                <!-- /ko --> 
+                <!-- ko if: (selectedChart() == 3) -->
+                    <select class="form-control" data-bind="value: selectedSearchId, optionsText: 'questionText', optionsValue: 'id', options: writtenQuestions, optionsCaption: 'Search', selectize: {}" />
+                <!-- /ko --> 
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <chart-viewer params="chartId: 'chartVote', header: chartHeader, data: dataset, clickCallback: barClick, isStackedType: isStackedType, seriesNames: seriesNames"></chart-viewer>
-            </div>
-        </div>
+        </div>        
     </div>
-<!-- /ko -->
+<!-- /ko --> 
 <div class="row">
     <div class="col-md-12">
-        <!-- ko if: ((selectedChart() == 1) && (selectedBarData().length>0)) -->
-            <division-list params="date: selectedYearMonth, divisions: selectedBarData"></division-list>
-        <!-- /ko -->
-        <!-- ko if: ((selectedChart() == 2) && (selectedBarData().length>0)) -->
-            <question-list params="date: selectedYearMonth, questions: selectedBarData, questionUrl: questionUrl"></question-list>
-        <!-- /ko -->
-        <!-- ko if: ((selectedChart() == 3) && (selectedBarData().length>0)) -->
-            <question-list params="date: selectedYearMonth, questions: selectedBarData, questionUrl: questionUrl"></question-list>
-        <!-- /ko -->
+        <!-- ko if: (selectedSubComponent()!=null) -->
+            <div data-bind="component: { name: selectedSubComponent, params: subParameters }"></div>
+        <!-- /ko -->        
     </div>
 </div>

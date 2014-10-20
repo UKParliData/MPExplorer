@@ -16,9 +16,9 @@ define(['Scripts/modules/conductor'], function (conductor) {
     ko.components.register('busy-indicator', { template: { require: 'Scripts/text!modules/busyindicator.html' } });    
     
     $.support.cors = true;
+    window.MPExplorer = new MPExplorer.Generic();
     window.conductorVM = new conductor();
-    window.MPExplorer = new MPExplorer.Generic();    
-    ko.applyBindings(conductorVM);
+    ko.applyBindings(window.conductorVM);
     toastr.options.positionClass = "toast-bottom-right";
 });
     

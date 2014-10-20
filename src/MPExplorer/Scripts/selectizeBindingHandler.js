@@ -14,8 +14,6 @@
         if (options.length > 0) {
             for (var i = 0; i < options.length; i++)
                 $(element).selectize()[0].selectize.addOption(options[i]);
-            $(element).selectize()[0].selectize.refreshOptions();
-            $(element).selectize()[0].selectize.enable();
         }
     }
 }

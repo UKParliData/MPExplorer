@@ -4,11 +4,11 @@
             var self = this;
 
             self.date = params.date;
-            self.divisions = params.divisions;
-            self.selectedDivision=ko.observable(null);
+            self.divisions = params.data;
 
             self.showDivision = function () {
-                self.selectedDivision(this);
+                window.subConductorVM.subParameters({ selectedItem: this });
+                window.subConductorVM.selectedSubComponent("division-viewer");
             };
 
         },

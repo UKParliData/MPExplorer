@@ -50,103 +50,92 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectiz
             self.numberOfVotes = ko.observable();
             self.numberOfOralQuestions = ko.observable();
             self.numberOfWrittenQuestions = ko.observable();
-            self.selectedVoting = ko.observable(params.selectedVoting);
-            self.selectedYearMonth = ko.observable(null);
             self.selectedChart = ko.observable(null);
-            self.selectedBarData = ko.observableArray([]);
-            self.chartHeader = ko.observable(null);
-            self.isStackedType = ko.observable(null);
-            self.seriesNames = ko.observableArray([]);
-            self.dataset = ko.observableArray([]);            
-            self.questionUrl = ko.observable();
             self.divisions = [];
             self.oralQuestions = [];
             self.writtenQuestions = [];
             self.selectedSearchId = ko.observable(null);
+            self.selectedSubComponent = ko.observable(null);
+            self.subParameters = ko.observable(null);
 
             self.showItemFromSearch = ko.computed(function () {
-                
-            });
-
-            self.barClick = function (data) {
+                var selectedItem = null;
                 var arr = [];
-                var source = [];
-                switch (self.selectedChart()) {
-                    case 1:
-                        source = self.divisions;
-                        break;
-                    case 2:
-                        source = self.oralQuestions;
-                        self.questionUrl("commonsoralquestions");
-                        break;
-                    case 3:
-                        source = self.writtenQuestions;
-                        self.questionUrl("commonswrittenquestions");
-                        break;
-                }
-                for (var i = 0; i < source.length; i++)
-                    if (source[i].sortDate == data.sortValue)
-                        arr.push(source[i]);
-                arr.sort(function (left, right) {
-                    return left.date === right.date ? left.index - right.index : left.date > right.date ? 1 : -1;
-                });
-                for (var i = 0; i < arr.length; i++)
-                    arr[i].index = i + 1;
-                self.selectedYearMonth(data.categoryValue);
-                self.selectedBarData(arr);
-            };
+                var viewerName = "";
+                var questionUrl = "";
 
-            self.convertToChartItems = function (dataset, isAyeNo) {
-                var items = [];
-
-                for (var i = 0; i < dataset.length; i++) {
-                    isFound = false;
-                    for (j = 0; j < items.length; j++)
-                        if (items[j].categoryValue === dataset[i].yearMonth) {
-                            if (isAyeNo) {
-                                if (dataset[i].isAye)
-                                    items[j].values[0] += 1;
-                                else
-                                    items[j].values[1] += 1;
-                            }
-                            else
-                                items[j].values[0] += 1;
-                            isFound = true;
+                if (self.selectedSearchId() != null) {
+                    switch (self.selectedChart()) {
+                        case 1:
+                            arr = self.divisions;
+                            viewerName = "division-viewer";
+                            break;
+                        case 2:
+                            arr = self.oralQuestions;
+                            viewerName = "question-viewer";
+                            questionUrl = "commonsoralquestions";
+                            break;
+                        case 3:
+                            arr = self.writtenQuestions;
+                            viewerName = "question-viewer";
+                            questionUrl = "commonswrittenquestions";
+                            break;
+                    }
+                    for (var i = 0; i < arr.length; i++)
+                        if (arr[i].id == self.selectedSearchId()) {
+                            selectedItem = arr[i];
                             break;
                         }
-                    if (isFound == false)
-                        items.push(new MPExplorer.ChartItem(i, isAyeNo ? [dataset[i].isAye ? 1 : 0, dataset[i].isAye ? 0 : 1] : [1], dataset[i].yearMonth, dataset[i].sortDate));
+                    self.subParameters({
+                        selectedItem: selectedItem,
+                        questionUrl: questionUrl
+                    });
+                    self.selectedSubComponent(viewerName);
                 }
-
-                items.sort(function (left, right) {
-                    return left.sortValue === right.sortValue ? left.index - right.index : left.sortValue > right.sortValue ? 1 : -1;
-                });
-                return items;
-            };
+            });
 
             self.chartSelection = function (selectedChart) {
-                var items = [];
-                self.selectedBarData([]);
+                var questionUrl = "";
+                var listViewerName = "";
+                var chartHeader = "";
+                var isStackedType = false;
+                var seriesNames = [];
+                var source = [];
+
                 self.selectedChart(selectedChart);
                 if ((selectedChart == 1) && (self.divisions.length > 0)) {
-                    self.chartHeader("Number of votes per calendar month");
-                    self.isStackedType(true);
-                    self.seriesNames(["Aye", "No"]);
-                    items = self.convertToChartItems(self.divisions, self.isStackedType());
+                    chartHeader = "Number of votes per calendar month";
+                    isStackedType = true;
+                    seriesNames = ["Aye", "No"];
+                    source = self.divisions;
+                    listViewerName = "division-list";
                 }
                 if ((selectedChart == 2) && (self.oralQuestions.length > 0)) {
-                    self.chartHeader("Number of oral questions per calendar month");
-                    self.isStackedType(false);
-                    self.seriesNames(["Oral question"]);
-                    items = self.convertToChartItems(self.oralQuestions, self.isStackedType());
+                    chartHeader = "Number of oral questions per calendar month";
+                    isStackedType = "false";
+                    seriesNames = ["Oral question"];
+                    source = self.oralQuestions;
+                    questionUrl = "commonsoralquestions";
+                    listViewerName = "question-list";
                 }
                 if ((selectedChart == 3) && (self.writtenQuestions.length > 0)) {
-                    self.chartHeader("Number of written questions per calendar month");
-                    self.isStackedType(false);
-                    self.seriesNames(["Written question"]);
-                    items = self.convertToChartItems(self.writtenQuestions, self.isStackedType());
+                    chartHeader = "Number of written questions per calendar month";
+                    isStackedType = false;
+                    seriesNames = ["Written question"];
+                    source = self.writtenQuestions;
+                    questionUrl = "commonswrittenquestions";
+                    listViewerName = "question-list";
                 }
-                self.dataset(items);
+                self.subParameters({
+                    chartId: "chartVote",
+                    header: chartHeader,
+                    source: source,
+                    questionUrl: questionUrl,
+                    isStackedType: isStackedType,
+                    seriesNames: seriesNames,
+                    listViewerName: listViewerName
+                });
+                self.selectedSubComponent("chart-viewer");
             };
 
             self.retriveVotes = function (ayes) {
@@ -199,6 +188,7 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectiz
 
             MPExplorer.getData("commonswrittenquestions.json?_properties=dateTabled,questionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveWrittenQuestions);
 
+            window.subConductorVM = self;
         },
         template: htmlText
     }

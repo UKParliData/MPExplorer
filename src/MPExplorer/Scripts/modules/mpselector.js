@@ -24,6 +24,8 @@
             self.retriveMPs=function(data){
                 var mps = [];
 
+                if (sessionStorage)
+                    sessionStorage.setItem("mps", JSON.stringify(data));
                 if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                     for (var i = 0; i < data.result.items.length; i++)
                         mps.push(new MPExplorer.MP(data.result.items[i]._about, data.result.items[i].fullName, data.result.items[i].party, data.result.items[i].gender, data.result.items[i].constituency));                
@@ -35,7 +37,20 @@
                 self.showMP.dispose();
             };
 
-            MPExplorer.getData("members/commons.json?_properties=fullName,party,gender,constituency&_view=basic&_page=0&_pageSize=50000", self.retriveMPs);
+            self.init = function () {
+                var isFound = false;
+                if (sessionStorage) {
+                    var mps = sessionStorage.getItem("mps");
+                    if ((mps != null) && (mps != "")) {
+                        self.retriveMPs(JSON.parse(mps));
+                        isFound = true;
+                    }
+                }
+                if (isFound == false)
+                    MPExplorer.getData("members/commons.json?_properties=fullName,party,gender,constituency&_view=basic&_page=0&_pageSize=50000", self.retriveMPs);
+            }
+
+            self.init();
 
         },
         template: htmlText

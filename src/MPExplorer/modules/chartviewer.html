@@ -1,12 +1,16 @@
-﻿<div class="row">
-    <div class="col-md-12">
-        <div class="row text-center">
-            <h4 data-bind="text: header"></h4>            
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <svg class="chart" data-bind="attr: { id: chartId }, d3js: { chartId: chartId, data: data, clickCallback: clickCallback, isStackedType: isStackedType, seriesNames: seriesNames }"></svg>
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h4 data-bind="text: header"></h4>            
+                </div>
             </div>
-        </div>        
-    </div>    
+            <div class="row">
+                <div class="col-md-12">
+                    <svg class="chart" data-bind="attr: { id: chartId }, d3js: { chartId: chartId, data: chartData, clickCallback: barClick, isStackedType: isStackedType, seriesNames: seriesNames }"></svg>
+                </div>
+            </div>        
+        </div>    
+    </div>
 </div>

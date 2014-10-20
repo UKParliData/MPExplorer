@@ -1,30 +1,25 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <!-- ko if: selectedDivision() == null -->
-            <div>
-                <h4>Voting in <text data-bind="text: date"></text></h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th style="width: 5%">#</th>
-                            <th style="width: 10%">Date</th>
-                            <th style="width: 10%">Voting</th>
-                            <th style="width: 75%">Title</th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="foreach: divisions">
-                        <tr>
-                            <td style="width: 5%" data-bind="text: index"></td>
-                            <td style="width: 10%" data-bind="text: date"></td>                    
-                            <td style="width: 10%" class="text-center"><span class="badge" data-bind="text: isAye?'Aye':'No'"></span></td>
-                            <td style="width: 75%"><a class="clickable" data-bind="text: title, click: $parent.showDivision"></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        <!-- /ko -->
-        <!-- ko if: selectedDivision() != null -->
-            <division-viewer params="selectedDivision: selectedDivision"></division-viewer>
-        <!-- /ko -->
+        <div>
+            <h4>Voting in <text data-bind="text: date"></text></h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 10%">Date</th>
+                        <th style="width: 10%">Voting</th>
+                        <th style="width: 75%">Title</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: divisions">
+                    <tr>
+                        <td style="width: 5%" data-bind="text: index"></td>
+                        <td style="width: 10%" data-bind="text: date"></td>                    
+                        <td style="width: 10%" class="text-center"><span class="badge" data-bind="text: isAye?'Aye':'No'"></span></td>
+                        <td style="width: 75%"><a class="clickable" data-bind="text: title, click: $parent.showDivision"></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

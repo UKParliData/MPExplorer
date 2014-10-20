@@ -110,7 +110,6 @@
     <Content Include="Scripts\modules\mpvoter.js" />
     <Content Include="Scripts\modules\questionlist.js" />
     <Content Include="Scripts\modules\questionviewer.js" />
-    <Content Include="Scripts\select2BindingHandler.js" />
     <Content Include="Scripts\MPExplorer.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
@@ -130,7 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\toastr.min.js.map" />
-    <Content Include="Scripts\modules\westminster.json" />
+    <Content Include="Scripts\modules\westminster.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

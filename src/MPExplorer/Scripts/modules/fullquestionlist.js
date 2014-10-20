@@ -3,9 +3,8 @@
         viewModel: function (params) {
             var self = this;
 
-            self.questions = params.questions;
-            self.header = params.header;
-            self.isLoading = params.isLoading;            
+            self.questions = params.data;
+            self.header = params.date;
         },
         template: htmlText
     }

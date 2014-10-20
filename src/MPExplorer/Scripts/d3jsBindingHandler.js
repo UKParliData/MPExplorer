@@ -75,10 +75,10 @@
 ko.bindingHandlers.d3js = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var allBindings = allBindingsAccessor();        
-        generateChart(allBindings.d3js.chartId(), allBindings.d3js.data(), allBindings.d3js.clickCallback, allBindings.d3js.isStackedType(), ko.unwrap(allBindings.d3js.seriesNames));
+        generateChart(ko.unwrap(allBindings.d3js.chartId), ko.unwrap(allBindings.d3js.data), allBindings.d3js.clickCallback, ko.unwrap(allBindings.d3js.isStackedType), ko.unwrap(allBindings.d3js.seriesNames));
     },
     update: function (element, valueAccessor, allBindingsAccessor) {
         var allBindings = allBindingsAccessor();
-        generateChart(allBindings.d3js.chartId(), allBindings.d3js.data(), allBindings.d3js.clickCallback, allBindings.d3js.isStackedType(), ko.unwrap(allBindings.d3js.seriesNames));
+        generateChart(ko.unwrap(allBindings.d3js.chartId), ko.unwrap(allBindings.d3js.data), allBindings.d3js.clickCallback, ko.unwrap(allBindings.d3js.isStackedType), ko.unwrap(allBindings.d3js.seriesNames));
     }
 };
