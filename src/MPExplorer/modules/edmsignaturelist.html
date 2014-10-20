@@ -1,0 +1,30 @@
+﻿<div class="row">
+    <div class="col-md-12">                
+            <div>
+                <h4 data-bind="text: edm.motionText"></h4>
+                <!-- ko if: isLoading() -->
+                    <div class="col-md-offset-5 col-md-1">
+                        <busy-indicator></busy-indicator>
+                    </div>
+                <!-- /ko -->
+                <!-- ko if: isLoading()==false -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">Order</th>
+                                <th style="width: 10%">Signed</th>
+                                <th style="width: 85%">Name</th>                        
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: edms">
+                            <tr>
+                                <td style="width: 5%" data-bind="text: order"></td>
+                                <td style="width: 10%" data-bind="text: dateSigned"></td>
+                                <td style="width: 85%" data-bind="text: name"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <!-- /ko -->
+            </div>        
+    </div>            
+</div>

@@ -13,6 +13,8 @@ define(['Scripts/modules/conductor'], function (conductor) {
     ko.components.register('question-list', { require: 'Scripts/modules/questionlist.js' });
     ko.components.register('question-viewer', { require: 'Scripts/modules/questionviewer.js' });
     ko.components.register('full-question-list', { require: 'Scripts/modules/fullquestionlist.js' });
+    ko.components.register('edm-list', { require: 'Scripts/modules/edmlist.js' });
+    ko.components.register('edm-signature-list', { require: 'Scripts/modules/edmsignaturelist.js' });
     ko.components.register('busy-indicator', { template: { require: 'Scripts/text!modules/busyindicator.html' } });    
     
     $.support.cors = true;

@@ -27,6 +27,12 @@
                   <busy-indicator data-bind="style:{display:isWrittenQuestionsLoading()?'inline-block':'none'}"></busy-indicator>
               </a>
           </li>
+          <li>
+              <a class="clickable" data-bind="click: chartSelection.bind($root, 4)">Early day motions
+                  <span class="badge pull-right" data-bind="text: numberOfEarlyDayMotions"></span>
+                  <busy-indicator data-bind="style:{display:isEarlyDayMotionsLoading()?'inline-block':'none'}"></busy-indicator>
+              </a>
+          </li>
         </ul>
     </div>
     <div class="col-md-2">

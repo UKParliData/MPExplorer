@@ -6,7 +6,6 @@
             self.date = params.date;
             self.questions = params.data;
             self.questionUrl = params.questionUrl;
-            self.selectedQuestion = ko.observable(null);
 
             self.showQuestion = function () {
                 window.subConductorVM.subParameters({ 

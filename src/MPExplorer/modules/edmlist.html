@@ -1,0 +1,25 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div>
+            <h4>Early day motions in <text data-bind="text: date"></text></h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 10%">Date</th>
+                        <th style="width: 10%">Signatures</th>
+                        <th style="width: 75%">Question</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: edms">
+                    <tr>
+                        <td style="width: 5%" data-bind="text: index"></td>
+                        <td style="width: 10%" data-bind="text: date"></td>
+                        <td style="width: 10%"><a class="clickable" data-bind="click: $parent.showSignatures, text: numberOfSignatures"></a></td>
+                        <td style="width: 75%" data-bind="text: motionText"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>            
+</div>

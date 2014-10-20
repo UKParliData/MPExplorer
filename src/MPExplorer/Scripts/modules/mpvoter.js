@@ -38,6 +38,20 @@ var writtenQuestion = function (urlId, dateTabled, questionText) {
     this.sortDate = dateTabled.split("-")[0] + dateTabled.split("-")[1];
 }
 
+var earlyDatMotion = function (urlId, dateTabled, motionText, numberOfSignatures) {
+    var splitUrl = urlId.split("/");
+    var idIndex = splitUrl.length - 1;
+    if (splitUrl[idIndex] === "")
+        idIndex = splitUrl.length - 2;
+    this.url = urlId;
+    this.id = urlId.split("/")[idIndex];
+    this.date = dateTabled;
+    this.motionText = motionText;
+    this.numberOfSignatures = numberOfSignatures;
+    this.yearMonth = dateTabled.split("-")[0] + " " + MPExplorer.months[dateTabled.split("-")[1] - 1];
+    this.sortDate = dateTabled.split("-")[0] + dateTabled.split("-")[1];
+}
+
 define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectize', 'Scripts/selectizeBindingHandler'], function (d3, htmlText) {
     return {
         viewModel: function (params) {
@@ -47,13 +61,16 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectiz
             self.isVotesLoading = ko.observable(true);
             self.isOralQuestionsLoading = ko.observable(true);
             self.isWrittenQuestionsLoading = ko.observable(true);
+            self.isEarlyDayMotionsLoading = ko.observable(true);
             self.numberOfVotes = ko.observable();
             self.numberOfOralQuestions = ko.observable();
             self.numberOfWrittenQuestions = ko.observable();
+            self.numberOfEarlyDayMotions = ko.observable();
             self.selectedChart = ko.observable(null);
             self.divisions = [];
             self.oralQuestions = [];
             self.writtenQuestions = [];
+            self.earlyDayMotions = [];
             self.selectedSearchId = ko.observable(null);
             self.selectedSubComponent = ko.observable(null);
             self.subParameters = ko.observable(null);
@@ -126,6 +143,13 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectiz
                     questionUrl = "commonswrittenquestions";
                     listViewerName = "question-list";
                 }
+                if ((selectedChart == 4) && (self.earlyDayMotions.length > 0)) {
+                    chartHeader = "Number of early day motions per calendar month";
+                    isStackedType = false;
+                    seriesNames = ["Early day motion"];
+                    source = self.earlyDayMotions;                    
+                    listViewerName = "edm-list";
+                }
                 self.subParameters({
                     chartId: "chartVote",
                     header: chartHeader,
@@ -178,6 +202,17 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectiz
                 self.isWrittenQuestionsLoading(false);
             };
 
+            self.retriveEDMs = function (data) {
+                var edms = [];
+                if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
+                    for (var i = 0; i < data.result.items.length; i++)
+                        if ((data.result.items[i].dateTabled != null) && (data.result.items[i].dateTabled._value != null))
+                            edms.push(new earlyDatMotion(data.result.items[i]._about, data.result.items[i].dateTabled._value, data.result.items[i].motionText, data.result.items[i].numberOfSignatures));
+                self.numberOfEarlyDayMotions(edms.length);
+                self.earlyDayMotions = edms;
+                self.isEarlyDayMotionsLoading(false);
+            };
+
             self.dispose = function () {
                 self.showItemFromSearch.dispose();
             };
@@ -187,6 +222,8 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectiz
             MPExplorer.getData("commonsoralquestions.json?_properties=dateTabled,questionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveOralQuestions);
 
             MPExplorer.getData("commonswrittenquestions.json?_properties=dateTabled,questionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveWrittenQuestions);
+
+            MPExplorer.getData("edms.json?_properties=dateTabled,numberOfSignatures,motionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveEDMs);
 
             window.subConductorVM = self;
         },
