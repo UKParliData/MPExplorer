@@ -17,7 +17,7 @@
                 if ((data != null) && (data.result != null) && (data.result.primaryTopic != null) && (data.result.primaryTopic.vote != null) && (data.result.primaryTopic.vote.length > 0)) {
                     for (var i = 0; i < data.result.primaryTopic.vote.length; i++)
                         self.mps.push({
-                            mp: new MPExplorer.MP(data.result.primaryTopic.vote[i].member[0]._about, data.result.primaryTopic.vote[i].memberPrinted, data.result.primaryTopic.vote[i].memberParty, data.result.primaryTopic.vote[i].member[0].gender, data.result.primaryTopic.vote[i].member[0].constituency),
+                            mp: new MPExplorer.MP(data.result.primaryTopic.vote[i].member[0]._about, data.result.primaryTopic.vote[i].memberPrinted, data.result.primaryTopic.vote[i].memberParty, data.result.primaryTopic.vote[i].member[0].gender, data.result.primaryTopic.vote[i].member[0].constituency.label._value),
                             vote: data.result.primaryTopic.vote[i].type.split("#")[1].toUpperCase()
                         });
                     self.refreshParties(
@@ -57,8 +57,8 @@
                                             self.map.select(className).transition().duration(1500).style("fill-opacity", 1).style("fill", "#80B8B2").delay(i * 2);
                             }
                         }
-                        else
-                            console.log(self.mps[i].mp.id + ":" + self.mps[i].mp.name + ":" + self.mps[i].mp.constituency + ":" + self.mps[i].mp.westminster);
+                        //else
+                          //  console.log(self.mps[i].mp.id + ":" + self.mps[i].mp.name + ":" + self.mps[i].mp.constituency + ":" + self.mps[i].mp.westminster);
                     }
                 }
             };
@@ -214,7 +214,7 @@
 
             self.showInfo = ko.computed(function () {
                 self.isLoading(true);
-                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision.id + ".json?_properties=title,vote.type,vote.memberPrinted,vote.memberParty,vote.member,vote.member.memberPrinted,vote.member.constituency,vote.member.gender&_view=basic", self.retriveDivision);
+                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision.id + ".json?_properties=title,vote.type,vote.memberPrinted,vote.memberParty,vote.member,vote.member.memberPrinted,vote.member.constituency.label,vote.member.gender&_view=basic", self.retriveDivision);
                 if (self.map == null)
                     self.createMap();
             });
