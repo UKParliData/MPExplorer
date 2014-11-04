@@ -17,7 +17,7 @@
                 if ((data != null) && (data.result != null) && (data.result.primaryTopic != null) && (data.result.primaryTopic.vote != null) && (data.result.primaryTopic.vote.length > 0)) {
                     for (var i = 0; i < data.result.primaryTopic.vote.length; i++)
                         self.mps.push({
-                            mp: new MPExplorer.MP(data.result.primaryTopic.vote[i].member[0]._about, data.result.primaryTopic.vote[i].memberPrinted, data.result.primaryTopic.vote[i].memberParty, data.result.primaryTopic.vote[i].member[0].gender, data.result.primaryTopic.vote[i].member[0].constituency.label._value),
+                            mp: new MPExplorer.MP(data.result.primaryTopic.vote[i].member[0]._about, data.result.primaryTopic.vote[i].memberPrinted, data.result.primaryTopic.vote[i].memberParty, data.result.primaryTopic.vote[i].member[0].gender, "", ""/*, data.result.primaryTopic.vote[i].member[0].constituency.label._value, data.result.primaryTopic.vote[i].member[0].constituency.gssCode*/),
                             vote: data.result.primaryTopic.vote[i].type.split("#")[1].toUpperCase()
                         });
                     self.refreshParties(
@@ -32,6 +32,9 @@
             };
 
             self.refreshMap = function () {
+                if (self.map == null)
+                    return;
+
                 var className;
                 var partyName = self.partyName();
                 var showMapByType = self.showMapByType();                    
@@ -39,13 +42,12 @@
                 self.map.selectAll(".constituency").style("fill-opacity", 0).style("fill", "#FFFFFF");
                 self.map.selectAll(".bar2").classed("bar2", false);
                 for (var i = 0; i < self.mps.length; i++) {
-                    //console.log(self.mps[i].mp.id + ":" + self.mps[i].mp.name + ":" + self.mps[i].mp.constituency + ":" + self.mps[i].mp.westminster);
                     if (((showMapByType == 1) ||
                         ((showMapByType == 2) && (self.mps[i].mp.gender.toUpperCase() == "FEMALE")) ||
                         ((showMapByType == 3) && (self.mps[i].mp.gender.toUpperCase() == "MALE"))) &&
                         ((partyName == null) || (self.mps[i].mp.party == partyName))) {
-                        if ((self.mps[i].mp.westminster != null) && (self.mps[i].mp.westminster.length > 0)) {
-                            className = ".constituency-" + self.mps[i].mp.westminster.split(" ").join("_");
+                        if (self.mps[i].mp.westminster != null) {
+                            className = ".constituency-" + self.mps[i].mp.westminster;
                             if (d3.selection().empty(className) == false) {
                                 if (self.mps[i].vote == "AYEVOTE")
                                     self.map.select(className).transition().duration(1500).style("fill-opacity", 1).style("fill", "#008FFA").delay(i * 2);
@@ -57,8 +59,6 @@
                                             self.map.select(className).transition().duration(1500).style("fill-opacity", 1).style("fill", "#80B8B2").delay(i * 2);
                             }
                         }
-                        //else
-                          //  console.log(self.mps[i].mp.id + ":" + self.mps[i].mp.name + ":" + self.mps[i].mp.constituency + ":" + self.mps[i].mp.westminster);
                     }
                 }
             };
@@ -188,7 +188,7 @@
                         .data(features)
                         .enter()
                         .append("path")
-                        .attr("class", function (d) { return "constituency constituency-" + d.properties.FILE_NAME; })
+                        .attr("class", function (d) { return "constituency constituency-" + d.properties.CODE; })
                         .attr("d", path);
                 });
 
@@ -214,9 +214,9 @@
 
             self.showInfo = ko.computed(function () {
                 self.isLoading(true);
-                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision.id + ".json?_properties=title,vote.type,vote.memberPrinted,vote.memberParty,vote.member,vote.member.memberPrinted,vote.member.constituency.label,vote.member.gender&_view=basic", self.retriveDivision);
-                if (self.map == null)
-                    self.createMap();
+                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision.id + ".json?_properties=title,vote.type,vote.memberPrinted,vote.memberParty,vote.member,vote.member.memberPrinted,vote.member.constituency.label,vote.member.constituency.gssCode,vote.member.gender&_view=basic", self.retriveDivision);
+                //if (self.map == null)
+                    //self.createMap();
             });
 
             self.showMP = function () {
