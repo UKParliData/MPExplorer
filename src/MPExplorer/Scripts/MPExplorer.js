@@ -7,10 +7,11 @@
             };
             
             Generic.prototype.getData = function (endpoint, parameters, whenDone) {
-                toastr.info(endpoint.substring(0, endpoint.lastIndexOf("?") == -1 ? endpoint.length : endpoint.lastIndexOf("?")));
+                toastr.info(endpoint);
                 $.ajax({
                     url: "http://lda.data.parliament.uk/" + endpoint,
                     data: parameters,
+                    dataType: "jsonp",
                     //cache: false,
                     success: function () {
                     },
