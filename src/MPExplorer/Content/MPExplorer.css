@@ -29,7 +29,11 @@
 }
 
 .nav li {
-    border: 1px solid #ddd;
+    border: 1px solid #ddd;    
+}
+
+.nav li button {
+    text-decoration: none !important;
 }
 
 .bottom-buffer {

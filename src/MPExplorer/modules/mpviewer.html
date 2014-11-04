@@ -10,28 +10,28 @@
         <!--<h4><strong>Constituency </strong><text data-bind="text: selectedMP.constituency"></text></h4>-->
         <ul class="nav nav-pills">
           <li>
-              <a class="clickable" data-bind="click: chartSelection.bind($root,1)">Votes
-                  <span class="badge pull-right" data-bind="text: numberOfVotes"></span>
+              <button class="btn btn-link" data-bind="enable: isVotesLoading()==false,click: chartSelection.bind($root,1)">
+                  Votes <span class="badge" data-bind="text: numberOfVotes"></span>
                   <busy-indicator data-bind="style:{display:isVotesLoading()?'inline-block':'none'}"></busy-indicator>
-              </a>
+              </button>
           </li>
           <li>
-              <a class="clickable" data-bind="click: chartSelection.bind($root, 2)">Oral questions
-                  <span class="badge pull-right" data-bind="text: numberOfOralQuestions"></span>
+              <button class="btn btn-link" data-bind="enable: isOralQuestionsLoading()==false,click: chartSelection.bind($root, 2)">
+                  Oral questions <span class="badge" data-bind="text: numberOfOralQuestions"></span>
                   <busy-indicator data-bind="style:{display:isOralQuestionsLoading()?'inline-block':'none'}"></busy-indicator>
-              </a>
+              </button>
           </li>
           <li>
-              <a class="clickable" data-bind="click: chartSelection.bind($root, 3)">Written questions
-                  <span class="badge pull-right" data-bind="text: numberOfWrittenQuestions"></span>
+              <button class="btn btn-link" data-bind="enable: isWrittenQuestionsLoading()==false,click: chartSelection.bind($root, 3)">
+                  Written questions <span class="badge" data-bind="text: numberOfWrittenQuestions"></span>
                   <busy-indicator data-bind="style:{display:isWrittenQuestionsLoading()?'inline-block':'none'}"></busy-indicator>
-              </a>
+              </button>
           </li>
           <li>
-              <a class="clickable" data-bind="click: chartSelection.bind($root, 4)">Early day motions
-                  <span class="badge pull-right" data-bind="text: numberOfEarlyDayMotions"></span>
+              <button class="btn btn-link" data-bind="enable: isEarlyDayMotionsLoading()==false,click: chartSelection.bind($root, 4)">
+                  Early day motions <span class="badge" data-bind="text: numberOfEarlyDayMotions"></span>
                   <busy-indicator data-bind="style:{display:isEarlyDayMotionsLoading()?'inline-block':'none'}"></busy-indicator>
-              </a>
+              </button>
           </li>
         </ul>
     </div>    
