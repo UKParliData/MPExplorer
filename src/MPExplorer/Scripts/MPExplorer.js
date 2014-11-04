@@ -11,7 +11,7 @@
                 $.ajax({
                     url: "http://lda.data.parliament.uk/" + endpoint,
                     data: parameters,
-                    cache: false,
+                    //cache: false,
                     success: function () {
                     },
                     error: function () {
