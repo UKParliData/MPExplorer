@@ -29,7 +29,12 @@ define(['Scripts/text!modules/edmsignaturelist.html'], function (htmlText) {
                 self.isLoading(false);
             };
 
-            MPExplorer.getData("resources/"+self.edm.id+".json?_view=basic&_properties=signature.memberPrinted,signature.order,signature.dateSigned", self.retriveSignatures);
+            MPExplorer.getData("resources/" + self.edm.id + ".json",
+                {
+                _view: "basic",
+                _properties: "signature.memberPrinted,signature.order,signature.dateSigned"
+                },
+                self.retriveSignatures);
 
         },
         template: htmlText

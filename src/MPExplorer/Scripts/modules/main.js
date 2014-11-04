@@ -16,7 +16,7 @@ define(['Scripts/modules/conductor'], function (conductor) {
     ko.components.register('edm-list', { require: 'Scripts/modules/edmlist.js' });
     ko.components.register('edm-signature-list', { require: 'Scripts/modules/edmsignaturelist.js' });
     ko.components.register('busy-indicator', { template: { require: 'Scripts/text!modules/busyindicator.html' } });    
-    
+
     $.support.cors = true;
     window.MPExplorer = new MPExplorer.Generic();
     window.conductorVM = new conductor();

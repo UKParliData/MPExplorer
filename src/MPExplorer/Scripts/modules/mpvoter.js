@@ -163,7 +163,14 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectiz
             };
 
             self.retriveVotes = function (ayes) {
-                MPExplorer.getData("commonsdivisions/no.json?_properties=date,title&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, function (noes) {
+                MPExplorer.getData("commonsdivisions/no.json",
+                    {
+                        _properties: "date,title",
+                        _view: "basic",
+                        _page: 0,
+                        _pageSize: 50000,
+                        mnisId: params.selectedMP.id
+                    }, function (noes) {
                     var divisions = [];
 
                     var populateDivisions = function (data, isAye) {
@@ -217,13 +224,45 @@ define(['Scripts/d3.min', 'Scripts/text!modules/mpvoter.html', 'Scripts/selectiz
                 self.showItemFromSearch.dispose();
             };
 
-            MPExplorer.getData("commonsdivisions/aye.json?_properties=date,title&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveVotes);
+            MPExplorer.getData("commonsdivisions/aye.json",
+                {
+                    _properties: "date,title",
+                    _view: "basic",
+                    _page: 0,
+                    _pageSize: 50000,
+                    mnisId: params.selectedMP.id
+                },
+                self.retriveVotes);
 
-            MPExplorer.getData("commonsoralquestions.json?_properties=dateTabled,questionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveOralQuestions);
+            MPExplorer.getData("commonsoralquestions.json",
+                {
+                    _properties: "dateTabled,questionText",
+                    _view: "basic",
+                    _page: 0,
+                    _pageSize: 50000,
+                    mnisId: params.selectedMP.id
+                },
+                self.retriveOralQuestions);
 
-            MPExplorer.getData("commonswrittenquestions.json?_properties=dateTabled,questionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveWrittenQuestions);
+            MPExplorer.getData("commonswrittenquestions.json",
+                {
+                    _properties: "dateTabled,questionText",
+                    _view: "basic",
+                    _page: 0,
+                    _pageSize: 50000,
+                    mnisId: params.selectedMP.id
+                },
+                self.retriveWrittenQuestions);
 
-            MPExplorer.getData("edms.json?_properties=dateTabled,numberOfSignatures,motionText&_view=basic&_page=0&_pageSize=50000&mnisId=" + params.selectedMP.id, self.retriveEDMs);
+            MPExplorer.getData("edms.json",
+                {
+                    _properties: "dateTabled,numberOfSignatures,motionText",
+                    _view: "basic",
+                    _page: 0,
+                    _pageSize: 50000,
+                    mnisId: params.selectedMP.id
+                },
+                self.retriveEDMs);
 
             window.subConductorVM = self;
         },

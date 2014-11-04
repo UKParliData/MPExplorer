@@ -42,7 +42,12 @@ define(['Scripts/text!modules/questionviewer.html'], function (htmlText) {
 
             self.showInfo = ko.computed(function () {
                 self.isLoading(true);
-                MPExplorer.getData(self.questionUrl + "/" + self.selectedQuestion.id + ".json?_properties=AnswerDate,answeringDepartment,questionText&_view=basic", self.retriveQuestion);
+                MPExplorer.getData(self.questionUrl + "/" + self.selectedQuestion.id + ".json",
+                    {
+                        _properties: "AnswerDate,answeringDepartment,questionText",
+                        _view: "basic"
+                    },
+                    self.retriveQuestion);
             });
 
             self.convertToChartItems = function (dataset) {
@@ -94,7 +99,15 @@ define(['Scripts/text!modules/questionviewer.html'], function (htmlText) {
             };
 
             self.showAnsweringBodyQuestions = function () {               
-                MPExplorer.getData(self.questionUrl + ".json?_properties=dateTabled,AnswerDate,questionText,tablingMemberPrinted,tablingMember&_view=basic&_page=0&_pageSize=50000&answeringDepartment=" + this.answeringBody(), self.retriveQuestionsForAnsweringBody);
+                MPExplorer.getData(self.questionUrl + ".json",
+                    {
+                        _properties: "dateTabled,AnswerDate,questionText,tablingMemberPrinted,tablingMember",
+                        _view: "basic",
+                        _page: 0,
+                        _pageSize: 50000,
+                        answeringDepartment: this.answeringBody()
+                    },
+                    self.retriveQuestionsForAnsweringBody);
             };
 
             self.dispose = function () {

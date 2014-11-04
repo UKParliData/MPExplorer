@@ -47,7 +47,14 @@
                     }
                 }
                 if (isFound == false)
-                    MPExplorer.getData("commonsmembers.json?_properties=fullName,party,gender,constituency.label,constituency.gssCode&_view=basic&_page=0&_pageSize=50000", self.retriveMPs);
+                    MPExplorer.getData("commonsmembers.json",
+                        {
+                            _properties: "fullName,party,gender,constituency.label,constituency.gssCode",
+                            _view: "basic",
+                            _page: 0,
+                            _pageSize: 50000
+                        },
+                        self.retriveMPs);
             }
 
             self.init();

@@ -214,7 +214,12 @@
 
             self.showInfo = ko.computed(function () {
                 self.isLoading(true);
-                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision.id + ".json?_properties=title,vote.type,vote.memberPrinted,vote.memberParty,vote.member,vote.member.memberPrinted,vote.member.constituency.label,vote.member.constituency.gssCode,vote.member.gender&_view=basic", self.retriveDivision);
+                MPExplorer.getData("commonsdivisions/id/" + self.selectedDivision.id + ".json",
+                    {
+                        _properties: "title,vote.type,vote.memberPrinted,vote.memberParty,vote.member,vote.member.memberPrinted,vote.member.constituency.label,vote.member.constituency.gssCode,vote.member.gender",
+                        _view: "basic"
+                    },
+                    self.retriveDivision);
                 //if (self.map == null)
                     //self.createMap();
             });

@@ -6,10 +6,11 @@
             function Generic() {
             };
             
-            Generic.prototype.getData = function (endpoint, whenDone) {
+            Generic.prototype.getData = function (endpoint, parameters, whenDone) {
                 toastr.info(endpoint.substring(0, endpoint.lastIndexOf("?") == -1 ? endpoint.length : endpoint.lastIndexOf("?")));
                 $.ajax({
                     url: "http://lda.data.parliament.uk/" + endpoint,
+                    data: parameters,
                     cache: false,
                     success: function () {
                     },
