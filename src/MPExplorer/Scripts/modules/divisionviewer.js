@@ -15,11 +15,13 @@
 
             self.retriveDivision = function (data) {
                 if ((data != null) && (data.result != null) && (data.result.primaryTopic != null) && (data.result.primaryTopic.vote != null) && (data.result.primaryTopic.vote.length > 0)) {
-                    for (var i = 0; i < data.result.primaryTopic.vote.length; i++)
+                    for (var i = 0; i < data.result.primaryTopic.vote.length; i++) {
+                        var vote=data.result.primaryTopic.vote[i];
                         self.mps.push({
-                            mp: new MPExplorer.MP(data.result.primaryTopic.vote[i].member[0]._about, data.result.primaryTopic.vote[i].memberPrinted, data.result.primaryTopic.vote[i].memberParty, data.result.primaryTopic.vote[i].member[0].gender, data.result.primaryTopic.vote[i].member[0].constituency.label._value, data.result.primaryTopic.vote[i].member[0].constituency.gssCode),
-                            vote: data.result.primaryTopic.vote[i].type.split("#")[1].toUpperCase()
+                            mp: new MPExplorer.MP(vote.member[0]._about, vote.memberPrinted, vote.memberParty, vote.member[0].gender, vote.member[0].constituency == null ? "" : vote.member[0].constituency.label._value, vote.member[0].constituency == null ? "" : vote.member[0].constituency.gssCode),
+                            vote: vote.type.split("#")[1].toUpperCase()
                         });
+                    }
                     self.refreshParties(
                         data.result.primaryTopic.Noesvotecount,
                         data.result.primaryTopic.AyesCount,

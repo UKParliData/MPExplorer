@@ -4,7 +4,7 @@
             <h2 class="glyphicon glyphicon-arrow-left"></h2>
         </a>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
         <h2><span data-bind="text: selectedMP.name"></span></h2>
         <h4><strong>Party </strong><text data-bind="text: selectedMP.party"></text></h4>
         <h4><strong>Constituency </strong><text data-bind="text: selectedMP.constituency"></text></h4>
@@ -35,4 +35,7 @@
           </li>
         </ul>
     </div>    
+    <div class="col-md-1">
+        <img data-bind="attr: {src: 'http://data.members.parliament.uk/services/images/memberphoto/'+selectedMP.id}" alt="MP" />
+    </div>
 </div>

@@ -1,6 +1,6 @@
 ﻿require.config({
     baseUrl: "/",
-    urlArgs: "bust=v1"
+    urlArgs: "bust=v2"
 });
 
 define(['Scripts/modules/conductor'], function (conductor) {
