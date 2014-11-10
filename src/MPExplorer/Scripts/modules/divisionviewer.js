@@ -17,7 +17,7 @@
                 if ((data != null) && (data.result != null) && (data.result.primaryTopic != null) && (data.result.primaryTopic.vote != null) && (data.result.primaryTopic.vote.length > 0)) {
                     for (var i = 0; i < data.result.primaryTopic.vote.length; i++)
                         self.mps.push({
-                            mp: new MPExplorer.MP(data.result.primaryTopic.vote[i].member[0]._about, data.result.primaryTopic.vote[i].memberPrinted, data.result.primaryTopic.vote[i].memberParty, data.result.primaryTopic.vote[i].member[0].gender, "", ""/*, data.result.primaryTopic.vote[i].member[0].constituency.label._value, data.result.primaryTopic.vote[i].member[0].constituency.gssCode*/),
+                            mp: new MPExplorer.MP(data.result.primaryTopic.vote[i].member[0]._about, data.result.primaryTopic.vote[i].memberPrinted, data.result.primaryTopic.vote[i].memberParty, data.result.primaryTopic.vote[i].member[0].gender, data.result.primaryTopic.vote[i].member[0].constituency.label._value, data.result.primaryTopic.vote[i].member[0].constituency.gssCode),
                             vote: data.result.primaryTopic.vote[i].type.split("#")[1].toUpperCase()
                         });
                     self.refreshParties(
@@ -220,8 +220,8 @@
                         _view: "basic"
                     },
                     self.retriveDivision);
-                //if (self.map == null)
-                    //self.createMap();
+                if (self.map == null)
+                    self.createMap();
             });
 
             self.showMP = function () {

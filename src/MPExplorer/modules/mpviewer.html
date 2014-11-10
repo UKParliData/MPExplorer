@@ -7,7 +7,7 @@
     <div class="col-md-9">
         <h2><span data-bind="text: selectedMP.name"></span></h2>
         <h4><strong>Party </strong><text data-bind="text: selectedMP.party"></text></h4>
-        <!--<h4><strong>Constituency </strong><text data-bind="text: selectedMP.constituency"></text></h4>-->
+        <h4><strong>Constituency </strong><text data-bind="text: selectedMP.constituency"></text></h4>
         <ul class="nav nav-pills">
           <li>
               <button class="btn btn-link" data-bind="enable: isVotesLoading()==false,click: chartSelection.bind($root,1)">

@@ -28,7 +28,7 @@
                     sessionStorage.setItem("mps", JSON.stringify(data));
                 if ((data != null) && (data.result != null) && (data.result.items != null) && (data.result.items.length > 0))
                     for (var i = 0; i < data.result.items.length; i++)
-                        mps.push(new MPExplorer.MP(data.result.items[i]._about, data.result.items[i].fullName, data.result.items[i].party, data.result.items[i].gender, "", ""/*, data.result.items[i].constituency.label._value, data.result.items[i].constituency.gssCode*/));
+                        mps.push(new MPExplorer.MP(data.result.items[i]._about, data.result.items[i].fullName, data.result.items[i].party, data.result.items[i].gender, data.result.items[i].constituency.label._value, data.result.items[i].constituency.gssCode));
                 self.members(mps);
                 self.isLoading(false);
             };
