@@ -34,11 +34,11 @@
                     this.url=null;
                     this.id=null;
                 }
-                this.name = name;
-                this.party = party;
-                this.gender = gender || "";
-                this.constituency = constituency;
-                this.westminster = gssCode;
+                this.name = name._value || name;
+                this.party = party._value || party;
+                this.gender = gender._value || gender || "";
+                this.constituency = (constituency || {})._value || constituency;
+                this.westminster = (gssCode || {})._value || gssCode;
             }
 
             Generic.prototype.ChartItem = function (index, values, categoryValue, sortValue) {
